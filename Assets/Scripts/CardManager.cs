@@ -46,9 +46,16 @@ public class CardManager : MonoBehaviour
 
     GameObject GetCardPrefab(Card.Suit suit, Card.Rank rank)
     {
-        string prefabName = $"{rank.ToString()}Of{suit.ToString()}"; // TODO: Fix this line to work with the syntax
+        string suitName = suit.ToString();
+        string rankName = rank.ToString();
+
+        // Construct the prefab name with suit and rank
+        string prefabName = $"Card_{suitName}_{rankName}";
+
+        // Find the card prefab by name
         return cardPrefabs.Find(prefab => prefab.name == prefabName);
     }
+
 
     void ShuffleDecks()
     {
