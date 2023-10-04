@@ -4,6 +4,9 @@ using UnityEngine;
 public class CardManager : MonoBehaviour
 {
     [SerializeField] private List<GameObject> cardPrefabs = new List<GameObject>(); // List of card prefabs
+    [SerializeField] private GameObject spawnPoint;
+    [SerializeField] private GameObject card1Placeholder;
+    [SerializeField] private GameObject card2Placeholder;
 
     public List<Card> decks = new List<Card>();
     public List<Card> usedCards = new List<Card>();
@@ -16,6 +19,7 @@ public class CardManager : MonoBehaviour
         InitializeDecks();
         totalCardsInDeck = decks.Count;
         reshuffleThreshold = (int)(totalCardsInDeck * 0.6f);
+        DealCards();
     }
 
     void InitializeDecks()
@@ -68,26 +72,48 @@ public class CardManager : MonoBehaviour
         }
     }
 
-    Card DealCard()
+    public void DealCards()
     {
-        if (decks.Count == 0)
+        if (decks.Count < 2)
         {
-            decks.AddRange(usedCards);
-            usedCards.Clear();
-            ShuffleDecks();
+            Debug.LogWarning("Not enough cards to deal.");
+            return;
         }
 
-        Card card = decks[0];
-        decks.RemoveAt(0);
-        usedCards.Add(card);
+        // Get two random cards from the deck
+        Card card1 = decks[Random.Range(0, decks.Count)];
+        Card card2 = decks[Random.Range(0, decks.Count)];
 
-        if (decks.Count <= reshuffleThreshold)
-        {
-            ShuffleDecks();
-        }
+        // Remove the dealt cards from the deck
+        decks.Remove(card1);
+        decks.Remove(card2);
 
-        return card;
+        // Instantiate and move the cards
+        GameObject card1Object = Instantiate(card1.cardPrefab, spawnPoint.transform.position, Quaternion.identity);
+        GameObject card2Object = Instantiate(card2.cardPrefab, spawnPoint.transform.position, Quaternion.identity);
+
+        MoveCardToPosition(card1Object, card1Placeholder.transform.position);
+        MoveCardToPosition(card2Object, card2Placeholder.transform.position);
     }
+
+    void MoveCardToPosition(GameObject cardObject, Vector3 targetPosition)
+    {
+        float duration = 1.0f; // Adjust this for the desired animation speed
+        float elapsedTime = 0;
+
+        Vector3 startingPosition = cardObject.transform.position;
+
+        while (elapsedTime < duration)
+        {
+            cardObject.transform.position = Vector3.Lerp(startingPosition, targetPosition, (elapsedTime / duration));
+            elapsedTime += Time.deltaTime;
+        }
+
+        cardObject.transform.position = targetPosition;
+    }
+
+
+
 
     // Other functions like ReturnUsedCardsToDeck, CheckReshuffleCondition, etc.
 
