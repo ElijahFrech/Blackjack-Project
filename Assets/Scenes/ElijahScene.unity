@@ -2372,6 +2372,9 @@ MonoBehaviour:
   - {fileID: 136868, guid: a7b35d43069ec314184fcd49c076e1b7, type: 3}
   - {fileID: 145842, guid: 699fc61788931254786c967458824c98, type: 3}
   - {fileID: 119184, guid: 1d1d8017e10f2bc44895680f122d5447, type: 3}
+  spawnPoint: {fileID: 2130299701}
+  card1Placeholder: {fileID: 1950924066}
+  card2Placeholder: {fileID: 1353004229}
 --- !u!4 &718863534
 Transform:
   m_ObjectHideFlags: 0
