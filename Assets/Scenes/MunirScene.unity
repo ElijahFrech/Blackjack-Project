@@ -6548,7 +6548,7 @@ GameObject:
   - component: {fileID: 1714255191}
   - component: {fileID: 1714255190}
   m_Layer: 5
-  m_Name: Panel
+  m_Name: BetPanel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7321,6 +7321,7 @@ GameObject:
   - component: {fileID: 2035299039}
   - component: {fileID: 2035299038}
   - component: {fileID: 2035299037}
+  - component: {fileID: 2035299041}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -7411,6 +7412,22 @@ RectTransform:
   m_AnchoredPosition: {x: 1.623, y: 1.6155}
   m_SizeDelta: {x: 1192.75, y: 300}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &2035299041
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2035299036}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 37f024186f1bc6d44a77a29ff9bc9735, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  upButton: {fileID: 0}
+  downButton: {fileID: 0}
+  removeButton: {fileID: 0}
+  betButton: {fileID: 0}
 --- !u!1001 &2051311378
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7419,10 +7436,25 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3297218355969373292, guid: 71f633a8066181c4e8f8217230f77539,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3384693386399214209, guid: 71f633a8066181c4e8f8217230f77539,
         type: 3}
       propertyPath: m_Name
       value: DoubleButton
+      objectReference: {fileID: 0}
+    - target: {fileID: 4010277469522384007, guid: 71f633a8066181c4e8f8217230f77539,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4010277469522384007, guid: 71f633a8066181c4e8f8217230f77539,
+        type: 3}
+      propertyPath: localAxis.y
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 4441088860893980096, guid: 71f633a8066181c4e8f8217230f77539,
         type: 3}
@@ -8913,6 +8945,11 @@ PrefabInstance:
       propertyPath: m_InteractionManager
       value: 
       objectReference: {fileID: 46247896}
+    - target: {fileID: 8906440746133465498, guid: 71f633a8066181c4e8f8217230f77539,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 078c190c8c6aead42a3057af8bc022a7, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

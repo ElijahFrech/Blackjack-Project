@@ -9,8 +9,8 @@ EditorBuildSettings:
     path: Assets/Scenes/1 Start Scene.unity
     guid: 7776a0b6eb2f39940a5c18680ea837eb
   - enabled: 1
-    path: Assets/Scenes/VladScene.unity
-    guid: 7ebebdf1d117fe94793bd62c4bd43c59
+    path: Assets/Scenes/MunirScene.unity
+    guid: 0dba8581e7906a647b127565111b0a00
   m_configObjects:
     Unity.XR.Oculus.Settings: {fileID: 11400000, guid: a9da7d71dd4c78943b2d21b0e6057528,
       type: 2}
