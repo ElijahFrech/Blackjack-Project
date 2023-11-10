@@ -704,7 +704,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 240596929}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 2035299041}
+        m_TargetAssemblyTypeName: betUI, Assembly-CSharp
+        m_MethodName: decreaseBet
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &240596929
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2660,6 +2672,52 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 756184303}
   m_CullTransparentMesh: 1
+--- !u!1 &795060274
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 795060276}
+  - component: {fileID: 795060275}
+  m_Layer: 0
+  m_Name: VRMouseMovement
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &795060275
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 795060274}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 533c30b705b619d428b848ee75bad035, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rotationSpeed: 3
+  movementSpeed: 3
+--- !u!4 &795060276
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 795060274}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1.7131004, y: 1.5630692, z: -10.778714}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &894125585
 GameObject:
   m_ObjectHideFlags: 0
@@ -2742,7 +2800,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 894125588}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 2035299041}
+        m_TargetAssemblyTypeName: betUI, Assembly-CSharp
+        m_MethodName: increaseBet
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &894125588
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7289,7 +7359,7 @@ Camera:
     y: 0
     width: 1
     height: 1
-  near clip plane: 0.01
+  near clip plane: 0.1
   far clip plane: 1000
   field of view: 60
   orthographic: 0
@@ -7424,10 +7494,57 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37f024186f1bc6d44a77a29ff9bc9735, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  upButton: {fileID: 0}
-  downButton: {fileID: 0}
-  removeButton: {fileID: 0}
-  betButton: {fileID: 0}
+  upButton: {fileID: 894125585}
+  downButton: {fileID: 240596926}
+  removeButton: {fileID: 1162762121}
+  betButton: {fileID: 1597605744}
+  betAmountText: {fileID: 756184305}
+  currentBetText: {fileID: 512986097}
+  currentPoolMoneyText: {fileID: 1547693774}
+--- !u!1 &2046366947
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2046366949}
+  - component: {fileID: 2046366948}
+  m_Layer: 0
+  m_Name: Game Manager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &2046366948
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2046366947}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 529bc7b2c56b82f48884b88df38539a9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &2046366949
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2046366947}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1.6352143, y: 1.5800358, z: -10.120365}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &2051311378
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -9046,3 +9163,5 @@ SceneRoots:
   - {fileID: 1587683393}
   - {fileID: 2035299040}
   - {fileID: 1960309168}
+  - {fileID: 795060276}
+  - {fileID: 2046366949}
