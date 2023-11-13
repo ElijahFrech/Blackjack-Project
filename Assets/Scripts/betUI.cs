@@ -14,7 +14,7 @@ public class betUI : MonoBehaviour
     [SerializeField] private Text currentPoolMoneyText;
 
 
-    int[] betArray = {5, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100};
+    int[] betArray = {1, 5, 10, 25, 50, 100};
 
     int currentBetAmount = 5;
     int currentBetAmountIndex = 0;
@@ -42,7 +42,7 @@ public class betUI : MonoBehaviour
             counter++;
         }
     }
-
+    //ADD AN IF THAT CHECKS IF WE BETTING LESS THAN POOL MONEY
     public void increaseBet()
     {
         FindCurrentBetAmount();
@@ -75,7 +75,7 @@ public class betUI : MonoBehaviour
     }
 
     public void makeBet()
-    {
+    {   
         GameManager.MakeBet = true;
         currentBetText.text = string.Format("CURRENT BET: {0} $", currentBetAmount);
         currentPoolMoneyText.text = string.Format("POOL MONEY: {0} $", poolMoney);
