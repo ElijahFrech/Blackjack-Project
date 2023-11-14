@@ -1,9 +1,16 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
+using UnityEngine.XR.Interaction.Toolkit; 
 
 public class VRMouseMovement : MonoBehaviour
 {
     public float rotationSpeed = 5.0f;
     public float movementSpeed = 5.0f;
+    
+    // Add a public UnityEvent that can be set in the Unity Editor
+  
+    public InputActionProperty leftActivate;
+    public XRController leftController; // Add this line
 
     void Update()
     {
@@ -20,5 +27,10 @@ public class VRMouseMovement : MonoBehaviour
 
         Vector3 moveDirection = new Vector3(horizontal, 0.0f, vertical);
         transform.Translate(moveDirection * movementSpeed * Time.deltaTime);
+
+    //  if (Input.GetMouseButtonDown(0))
+    //     {
+    //             leftActivate.action.triggered;// Add this line
+    //     }
     }
 }
