@@ -1,14 +1,16 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.XR.Interaction.Toolkit; 
+using UnityEngine.XR.Interaction.Toolkit;
 
 public class VRMouseMovement : MonoBehaviour
 {
     public float rotationSpeed = 5.0f;
     public float movementSpeed = 5.0f;
-    
+
+    [SerializeField] public CardManager cardManager;
+
     // Add a public UnityEvent that can be set in the Unity Editor
-  
+
     public InputActionProperty leftActivate;
     public XRController leftController; // Add this line
 
@@ -28,9 +30,39 @@ public class VRMouseMovement : MonoBehaviour
         Vector3 moveDirection = new Vector3(horizontal, 0.0f, vertical);
         transform.Translate(moveDirection * movementSpeed * Time.deltaTime);
 
-    //  if (Input.GetMouseButtonDown(0))
-    //     {
-    //             leftActivate.action.triggered;// Add this line
-    //     }
+        if (Input.GetMouseButtonDown(0))
+        {
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            RaycastHit hit;
+
+            if (Physics.Raycast(ray, out hit))
+            {
+
+                Debug.Log("Clicked on: " + hit.transform.name);
+                string name = hit.transform.name;
+
+                if (name == "Interactable")
+                {
+
+
+                    cardManager.DealCards();
+
+
+                }
+                else if (name == "Interactable2")
+                {
+
+                    cardManager.DealerCards();
+
+                }
+
+
+            }
+
+
+        }
+
+
+
     }
 }
