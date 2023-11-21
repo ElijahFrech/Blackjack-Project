@@ -9,6 +9,12 @@ public class Player
     public void ReceiveCard(Card card)
     {
         hand.Add(card);
+        foreach (Card c in hand)
+    {
+            //Debug.Log(c.ToString() + ", Rank: " + c.rank + ", Rank Value: " + (int)c.rank);
+   
+    }
+    
     }
 
     public int GetHandValue()
@@ -16,16 +22,19 @@ public class Player
         int totalValue = 0;
         int numberOfAces = 0;
 
-        foreach (Card card in hand)
-        {
-            int cardValue = card.GetValue();
-            totalValue += cardValue;
+         for (int i = 0; i < hand.Count; i++)
+    {
+        Card card = hand[i];
+        Debug.Log("Card " + (i+1) + ": " + card.ToString() + ", Rank: " + card.rank + ", Rank Value: " + (int)card.rank);
 
-            if (cardValue == 11) // Ace
-            {
-                numberOfAces++;
-            }
+        int cardValue = card.GetValue();
+        totalValue += cardValue;
+
+        if (cardValue == 11) // Ace
+        {
+            numberOfAces++;
         }
+    }
 
         // Handle Aces
         while (numberOfAces > 0 && totalValue > 21)

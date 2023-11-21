@@ -27,8 +27,8 @@ public class CardManager : MonoBehaviour
     {
         InitializeDecks();
         totalCardsInDeck = decks.Count;
-        DealCards();
-        DealerCards();
+        //DealCards();
+        //DealerCards();
         hitButton.SetActive(false);
     }
 
@@ -135,7 +135,9 @@ public class CardManager : MonoBehaviour
         decks.Remove(card2);
 
         // Pass the cards to the player class
+        Debug.Log("First Card");
         player.ReceiveCard(card1);
+         Debug.Log("Second Card");
         player.ReceiveCard(card2);
 
         // Instantiate the cards with default rotations
@@ -149,10 +151,10 @@ public class CardManager : MonoBehaviour
         MoveCardToPosition(card1Object, card1Placeholder.transform.position);
         MoveCardToPosition(card2Object, card2Placeholder.transform.position);
 
-        Debug.Log("Player card 1: " + card1.suit + card1.rank);
-        Debug.Log("Player card 2: " + card2.suit + card2.rank);
-        playerAmount = (int)card1.rank + (int)card2.rank;
-        Debug.Log("Player Sum: " + playerAmount);
+        //Debug.Log("Player card 1: " + card1.suit + card1.rank);
+        //Debug.Log("Player card 2: " + card2.suit + card2.rank);
+       // playerAmount = (int)card1.rank + (int)card2.rank;
+        //Debug.Log("Player Sum: " + playerAmount);
 
 
         // Set the current cards as the previous cards
@@ -200,7 +202,7 @@ public class CardManager : MonoBehaviour
         newCardObject.transform.eulerAngles = new Vector3(0, 0, 180);
 
         // Log the newly drawn card
-        Debug.Log("Player drew: " + newCard.rank + " of " + newCard.suit);
+       // Debug.Log("Player drew: " + newCard.rank + " of " + newCard.suit);
         Debug.Log("Player's Card Amount: " + player.GetHandValue());
         // Update the last spawned card's position
         lastSpawnedCardPosition = spawnPosition;
