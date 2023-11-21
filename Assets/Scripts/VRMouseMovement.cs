@@ -55,6 +55,10 @@ public class VRMouseMovement : MonoBehaviour
                     cardManager.DealerCards();
 
                 }
+                else if (name == "Interactable3")
+                {
+                    cardManager.PlayerHit();
+                }
 
 
             }

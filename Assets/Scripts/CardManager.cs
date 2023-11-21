@@ -13,6 +13,7 @@ public class CardManager : MonoBehaviour
     private GameObject previousCard2;
     private int playerAmount;
     private int dealerAmount;
+    private Player player = new Player();
     private Vector3 lastSpawnedCardPosition;
 
 
@@ -169,7 +170,16 @@ public class CardManager : MonoBehaviour
         decks.Remove(newCard);
 
         // Calculate the position for the new card
-        Vector3 spawnPosition = lastSpawnedCardPosition + new Vector3(0.04f, 0, 0);
+        Vector3 spawnPosition;
+
+        if (lastSpawnedCardPosition == Vector3.zero) // Initial spawn
+        {
+            spawnPosition = card2Placeholder.transform.position + new Vector3(-0.15f, 0, 0);
+        }
+        else
+        {
+            spawnPosition = lastSpawnedCardPosition + new Vector3(-0.15f, 0, 0);
+        }
 
         // Instantiate the new card with default rotation
         GameObject newCardObject = Instantiate(newCard.cardPrefab, spawnPosition, Quaternion.identity);
@@ -179,15 +189,12 @@ public class CardManager : MonoBehaviour
 
         // Log the newly drawn card
         Debug.Log("Player drew: " + newCard.rank + " of " + newCard.suit);
-
-        // Add the new card to the player's hand
-        //player.ReceiveCard(newCard);
-
+        Debug.Log("Player's Card Amount: " + player.GetHandValue());
         // Update the last spawned card's position
         lastSpawnedCardPosition = spawnPosition;
-        // Debug log the player's card amount (TODO: ADD THE PLAYER CLASS AT THE TOP TO DECLARE IT: private Player player = new Player();)
-        // Debug.Log("Player's Card Amount: " + player.GetHandValue());
+
     }
+
 
     public void DealerCards()
     {
@@ -221,7 +228,7 @@ public class CardManager : MonoBehaviour
 
         // Set the z rotation to 180 degrees
         card1Object.transform.eulerAngles = new Vector3(0, 0, 180);
-        card2Object.transform.eulerAngles = new Vector3(0, 0, 90);
+        card2Object.transform.eulerAngles = new Vector3(0, 0, 0);
 
         MoveCardToPosition(card1Object, dealerPlaceholder1.transform.position);
         MoveCardToPosition(card2Object, dealerPlaceholder2.transform.position);
