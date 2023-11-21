@@ -38,7 +38,7 @@ public class VRMouseMovement : MonoBehaviour
             if (Physics.Raycast(ray, out hit))
             {
 
-                Debug.Log("Clicked on: " + hit.transform.name);
+                //Debug.Log("Clicked on: " + hit.transform.name);
                 string name = hit.transform.name;
 
                 if (name == "Interactable")

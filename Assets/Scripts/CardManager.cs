@@ -9,6 +9,7 @@ public class CardManager : MonoBehaviour
     [SerializeField] private GameObject card2Placeholder;
     [SerializeField] private GameObject dealerPlaceholder1;
     [SerializeField] private GameObject dealerPlaceholder2;
+    [SerializeField] private GameObject hitButton;
     private GameObject previousCard1;
     private GameObject previousCard2;
     private int playerAmount;
@@ -28,7 +29,7 @@ public class CardManager : MonoBehaviour
         totalCardsInDeck = decks.Count;
         DealCards();
         DealerCards();
-
+        hitButton.SetActive(false);
     }
 
     void InitializeDecks()
@@ -133,6 +134,10 @@ public class CardManager : MonoBehaviour
         decks.Remove(card1);
         decks.Remove(card2);
 
+        // Pass the cards to the player class
+        player.ReceiveCard(card1);
+        player.ReceiveCard(card2);
+
         // Instantiate the cards with default rotations
         GameObject card1Object = Instantiate(card1.cardPrefab, spawnPoint.transform.position, Quaternion.identity);
         GameObject card2Object = Instantiate(card2.cardPrefab, spawnPoint.transform.position, Quaternion.identity);
@@ -153,6 +158,8 @@ public class CardManager : MonoBehaviour
         // Set the current cards as the previous cards
         previousCard1 = card1Object;
         previousCard2 = card2Object;
+
+        hitButton.SetActive(true);
     }
 
     public void PlayerHit()
@@ -166,8 +173,13 @@ public class CardManager : MonoBehaviour
         // Get a random card from the deck
         Card newCard = decks[Random.Range(0, decks.Count)];
 
+        // Pass the new card to the player class
+        player.ReceiveCard(newCard);
+
         // Remove the dealt card from the deck
         decks.Remove(newCard);
+
+
 
         // Calculate the position for the new card
         Vector3 spawnPosition;
@@ -192,6 +204,7 @@ public class CardManager : MonoBehaviour
         Debug.Log("Player's Card Amount: " + player.GetHandValue());
         // Update the last spawned card's position
         lastSpawnedCardPosition = spawnPosition;
+
 
     }
 

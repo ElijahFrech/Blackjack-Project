@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Player : MonoBehaviour
+public class Player
 {
     private List<Card> hand = new List<Card>();
 
@@ -19,13 +19,12 @@ public class Player : MonoBehaviour
         foreach (Card card in hand)
         {
             int cardValue = card.GetValue();
+            totalValue += cardValue;
 
             if (cardValue == 11) // Ace
             {
                 numberOfAces++;
             }
-
-            totalValue += cardValue;
         }
 
         // Handle Aces
@@ -37,6 +36,7 @@ public class Player : MonoBehaviour
 
         return totalValue;
     }
+
 
     public void ClearHand()
     {
