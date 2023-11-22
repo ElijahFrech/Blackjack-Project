@@ -2672,52 +2672,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 756184303}
   m_CullTransparentMesh: 1
---- !u!1 &795060274
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 795060276}
-  - component: {fileID: 795060275}
-  m_Layer: 0
-  m_Name: VRMouseMovement
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &795060275
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 795060274}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 533c30b705b619d428b848ee75bad035, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  rotationSpeed: 3
-  movementSpeed: 3
---- !u!4 &795060276
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 795060274}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.7131004, y: 1.5630692, z: -10.778714}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &894125585
 GameObject:
   m_ObjectHideFlags: 0
@@ -3695,6 +3649,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: SplitButton
+      objectReference: {fileID: 0}
+    - target: {fileID: 4010277469522384007, guid: 71f633a8066181c4e8f8217230f77539,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4441088860893980096, guid: 71f633a8066181c4e8f8217230f77539,
         type: 3}
@@ -4719,6 +4678,7 @@ GameObject:
   - component: {fileID: 1360856310}
   - component: {fileID: 1360856318}
   - component: {fileID: 1360856319}
+  - component: {fileID: 1360856320}
   m_Layer: 6
   m_Name: XR Origin (XR Rig)
   m_TagString: Untagged
@@ -5037,6 +4997,34 @@ MonoBehaviour:
       m_Flags: 0
     m_Reference: {fileID: 187161793506945269, guid: c348712bda248c246b8c49b3db54643f,
       type: 3}
+--- !u!114 &1360856320
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1360856308}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 533c30b705b619d428b848ee75bad035, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rotationSpeed: 50
+  movementSpeed: 100
+  cardManager: {fileID: 0}
+  leftActivate:
+    m_UseReference: 0
+    m_Action:
+      m_Name: Left Activate
+      m_Type: 0
+      m_ExpectedControlType: 
+      m_Id: 72f36b04-4b2c-4acd-aca0-c158ccb46c67
+      m_Processors: 
+      m_Interactions: 
+      m_SingletonActionBindings: []
+      m_Flags: 0
+    m_Reference: {fileID: 0}
+  leftController: {fileID: 0}
 --- !u!1 &1393574858
 GameObject:
   m_ObjectHideFlags: 0
@@ -5811,6 +5799,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: StandButton (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4010277469522384007, guid: 71f633a8066181c4e8f8217230f77539,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4441088860893980096, guid: 71f633a8066181c4e8f8217230f77539,
         type: 3}
@@ -7590,7 +7583,7 @@ PrefabInstance:
     - target: {fileID: 4010277469522384007, guid: 71f633a8066181c4e8f8217230f77539,
         type: 3}
       propertyPath: m_Enabled
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4010277469522384007, guid: 71f633a8066181c4e8f8217230f77539,
         type: 3}
@@ -9031,6 +9024,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: HitButton
       objectReference: {fileID: 0}
+    - target: {fileID: 4010277469522384007, guid: 71f633a8066181c4e8f8217230f77539,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6120501671770362215, guid: 71f633a8066181c4e8f8217230f77539,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -9187,5 +9185,4 @@ SceneRoots:
   - {fileID: 1587683393}
   - {fileID: 2035299040}
   - {fileID: 1960309168}
-  - {fileID: 795060276}
   - {fileID: 2046366949}
