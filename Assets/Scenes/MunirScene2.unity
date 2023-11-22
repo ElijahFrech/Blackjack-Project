@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028334, g: 0.2257134, b: 0.30692226, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -888,7 +888,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'USER MONEY: 90 $'
+  m_Text: 'USER MONEY: 500 $'
 --- !u!222 &257907534
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -3036,7 +3036,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'CURRENT BET: 10 $'
+  m_Text: 'CURRENT BET: 0 $'
 --- !u!1001 &1304650787
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4556,7 +4556,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 10
+  m_Text: 1
 --- !u!1001 &1581513345
 PrefabInstance:
   m_ObjectHideFlags: 0
