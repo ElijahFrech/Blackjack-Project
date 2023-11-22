@@ -79,8 +79,8 @@ public class betUI : MonoBehaviour
     {
         if (currentBetAmount >= currentBet)
         {
-            userMoney += currentBetAmount;
-            currentBetAmount = 0;
+            userMoney += currentBet;
+            currentBetAmount -= currentBet;
         }
         else
         { Debug.Log("You cant remove more bets than you have in your betting stake.");

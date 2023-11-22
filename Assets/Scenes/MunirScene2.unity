@@ -837,6 +837,18 @@ MonoBehaviour:
       m_Flags: 0
     m_Reference: {fileID: 0}
   m_ButtonPressPoint: 0.5
+--- !u!114 &217635878 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 295014259555083841, guid: dc34b54161d017040bbd1f058331351f,
+    type: 3}
+  m_PrefabInstance: {fileID: 687095995}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 864e0d084057dae489fa5a2d46127f36, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &257907532
 GameObject:
   m_ObjectHideFlags: 0
@@ -4161,7 +4173,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rotationSpeed: 100
   movementSpeed: 100
-  cardManager: {fileID: 0}
+  cardManager: {fileID: 217635878}
   leftActivate:
     m_UseReference: 0
     m_Action:
