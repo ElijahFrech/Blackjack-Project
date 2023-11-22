@@ -16,13 +16,17 @@ public class betUI : MonoBehaviour
 
     int[] betArray = {1, 5, 10, 25, 50, 100};
 
-    int currentBetAmount = 5;
+    int currentBetAmount = 1;
     int currentBetAmountIndex = 0;
     int poolMoney = 500;
     
     // Start is called before the first frame update
     void Start()
     {
+        currentBetText.text = string.Format("{0} $", currentBetAmount);
+        betAmountText.text = string.Format("{0} $", currentBetAmount);
+        currentPoolMoneyText.text = string.Format("{0} $", poolMoney);
+
         FindCurrentBetAmount();
     }
 
@@ -31,7 +35,7 @@ public class betUI : MonoBehaviour
         bool betAmountFound = false;
         int counter = 0;
         
-        while (betAmountFound == false)
+        while (!betAmountFound)
         {
             if (betArray[counter] == int.Parse(betAmountText.text))
             {
@@ -47,8 +51,11 @@ public class betUI : MonoBehaviour
     {
         FindCurrentBetAmount();
 
-        currentBetAmount = betArray[currentBetAmountIndex + 1];
-        poolMoney -= currentBetAmount;
+        if(!(currentBetAmount == 100))
+        {
+            currentBetAmount = betArray[currentBetAmountIndex + 1];
+            poolMoney -= currentBetAmount;
+        }
 
         betAmountText.text = string.Format("{0} $", currentBetAmount);
     }
@@ -57,15 +64,18 @@ public class betUI : MonoBehaviour
     {
         FindCurrentBetAmount();
 
-        currentBetAmount = betArray[currentBetAmountIndex - 1];
-        poolMoney -= currentBetAmount;
+        if (!(currentBetAmount == 1))
+        {
+            currentBetAmount = betArray[currentBetAmountIndex - 1];
+            poolMoney -= currentBetAmount;
+        }
 
         betAmountText.text = string.Format("{0} $", currentBetAmount);
     }
 
     public void removeBet()
     {
-        currentBetAmount = 5;
+        currentBetAmount = 1;
 
         betAmountText.text = string.Format("{0} $", currentBetAmount);
         currentBetText.text = string.Format("CURRENT BET: {0} $", currentBetAmount);
