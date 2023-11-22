@@ -849,7 +849,7 @@ GameObject:
   - component: {fileID: 257907534}
   - component: {fileID: 257907533}
   m_Layer: 5
-  m_Name: PoolMoneyText
+  m_Name: UserMoneyText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -888,7 +888,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'POOL MONEY: 90 $'
+  m_Text: 'USER MONEY: 90 $'
 --- !u!222 &257907534
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -950,7 +950,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   betAmountText: {fileID: 1543082016}
   currentBetText: {fileID: 1143287557}
-  currentPoolMoneyText: {fileID: 257907533}
+  currentUserMoneyText: {fileID: 257907533}
 --- !u!114 &465442530
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2247,7 +2247,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &910198005
 Transform:
   m_ObjectHideFlags: 0
@@ -3134,7 +3134,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1331081349
 Transform:
   m_ObjectHideFlags: 0

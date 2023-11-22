@@ -7,21 +7,21 @@ public class betUI : MonoBehaviour
 {
     [SerializeField] private Text betAmountText;
     [SerializeField] private Text currentBetText;
-    [SerializeField] private Text currentPoolMoneyText;
-
+    [SerializeField] private Text currentUserMoneyText;
 
     int[] betArray = {1, 5, 10, 25, 50, 100};
 
-    int currentBetAmount = 1;
-    int currentBetAmountIndex = 0;
-    int poolMoney = 500;
+    int currentBet = 1;
+    int currentBetAmount = 0;
+    int currentBetIndex = 0;
+    int userMoney = 500;
     
     // Start is called before the first frame update
     void Start()
     {
         currentBetText.text = string.Format("CURRENT BET: {0} $", currentBetAmount);
-        betAmountText.text = string.Format("{0}", currentBetAmount);
-        currentPoolMoneyText.text = string.Format("POOL MONEY: {0} $", poolMoney);
+        betAmountText.text = string.Format("{0}", currentBet);
+        currentUserMoneyText.text = string.Format("USER MONEY: {0} $", userMoney);
 
         FindCurrentBetAmount();
     }
@@ -36,10 +36,15 @@ public class betUI : MonoBehaviour
             if (betArray[counter] == int.Parse(betAmountText.text))
             {
                 betAmountFound = true;
-                currentBetAmount = betArray[counter];
-                currentBetAmountIndex = counter;
+                currentBet = betArray[counter];
+                currentBetIndex = counter;
             }
-            counter++;
+            if (counter < 5)
+            {
+                counter++;
+            }
+            Debug.Log(counter.ToString());
+                
         }
     }
     //ADD AN IF THAT CHECKS IF WE BETTING LESS THAN POOL MONEY
@@ -47,23 +52,24 @@ public class betUI : MonoBehaviour
     {
         FindCurrentBetAmount();
 
-        if(!(currentBetAmount == 100))
+        if(!(currentBet == 100))
         {
-            currentBetAmount = betArray[currentBetAmountIndex + 1];
-            poolMoney -= currentBetAmount;
+            //currentBetIndex += 1;
+            currentBet = betArray[currentBetIndex + 1];
+            //Debug.Log(currentBet.ToString());   
         }
 
-        betAmountText.text = string.Format("{0}", currentBetAmount);
+        betAmountText.text = string.Format("{0}", currentBet);
     }
 
     public void decreaseBet()
     {
         FindCurrentBetAmount();
 
-        if (!(currentBetAmount == 1))
+        if (!(currentBet == 1))
         {
-            currentBetAmount = betArray[currentBetAmountIndex - 1];
-            poolMoney -= currentBetAmount;
+            //currentBetIndex -= 1;
+            currentBet = betArray[currentBetIndex - 1];
         }
 
         betAmountText.text = string.Format("{0}", currentBetAmount);
@@ -71,19 +77,19 @@ public class betUI : MonoBehaviour
 
     public void removeBet()
     {
-        currentBetAmount = 1;
+        userMoney += currentBetAmount;
+        currentBetAmount = 0;
 
-        betAmountText.text = string.Format("{0}", currentBetAmount);
         currentBetText.text = string.Format("CURRENT BET: {0} $", currentBetAmount);
-
-
-
     }
 
     public void makeBet()
-    {   
-        GameManager.MakeBet = true;
+    {
+        //GameManager.MakeBet = true;
+        currentBetAmount += currentBet;
+        userMoney -= currentBet;
+
         currentBetText.text = string.Format("CURRENT BET: {0} $", currentBetAmount);
-        currentPoolMoneyText.text = string.Format("POOL MONEY: {0} $", poolMoney);
+        currentUserMoneyText.text = string.Format("USER MONEY: {0} $", userMoney);
     }
 }
