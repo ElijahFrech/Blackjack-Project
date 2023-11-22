@@ -5,10 +5,6 @@ using UnityEngine.UI;
 
 public class betUI : MonoBehaviour
 {
-    [SerializeField] private GameObject upButton;
-    [SerializeField] private GameObject downButton;
-    [SerializeField] private GameObject removeButton;
-    [SerializeField] private GameObject betButton;
     [SerializeField] private Text betAmountText;
     [SerializeField] private Text currentBetText;
     [SerializeField] private Text currentPoolMoneyText;
@@ -23,9 +19,9 @@ public class betUI : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        currentBetText.text = string.Format("{0} $", currentBetAmount);
-        betAmountText.text = string.Format("{0} $", currentBetAmount);
-        currentPoolMoneyText.text = string.Format("{0} $", poolMoney);
+        currentBetText.text = string.Format("CURRENT BET: {0} $", currentBetAmount);
+        betAmountText.text = string.Format("{0}", currentBetAmount);
+        currentPoolMoneyText.text = string.Format("POOL MONEY: {0} $", poolMoney);
 
         FindCurrentBetAmount();
     }
@@ -57,7 +53,7 @@ public class betUI : MonoBehaviour
             poolMoney -= currentBetAmount;
         }
 
-        betAmountText.text = string.Format("{0} $", currentBetAmount);
+        betAmountText.text = string.Format("{0}", currentBetAmount);
     }
 
     public void decreaseBet()
@@ -70,14 +66,14 @@ public class betUI : MonoBehaviour
             poolMoney -= currentBetAmount;
         }
 
-        betAmountText.text = string.Format("{0} $", currentBetAmount);
+        betAmountText.text = string.Format("{0}", currentBetAmount);
     }
 
     public void removeBet()
     {
         currentBetAmount = 1;
 
-        betAmountText.text = string.Format("{0} $", currentBetAmount);
+        betAmountText.text = string.Format("{0}", currentBetAmount);
         currentBetText.text = string.Format("CURRENT BET: {0} $", currentBetAmount);
 
 
