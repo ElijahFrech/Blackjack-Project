@@ -38,12 +38,13 @@ public class betUI : MonoBehaviour
                 betAmountFound = true;
                 currentBet = betArray[counter];
                 currentBetIndex = counter;
+                Debug.Log("COUNRTER"+counter.ToString());
             }
             if (counter < 5)
             {
                 counter++;
             }
-            Debug.Log(counter.ToString());
+            
                 
         }
     }
@@ -54,9 +55,9 @@ public class betUI : MonoBehaviour
 
         if(!(currentBet == 100))
         {
-            //currentBetIndex += 1;
+            //currentBetIndex += 1; 
             currentBet = betArray[currentBetIndex + 1];
-            //Debug.Log(currentBet.ToString());   
+            Debug.Log("INDEX" +currentBetIndex.ToString());   
         }
 
         betAmountText.text = string.Format("{0}", currentBet);
