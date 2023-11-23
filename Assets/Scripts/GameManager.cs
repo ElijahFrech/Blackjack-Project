@@ -7,8 +7,10 @@ public class GameManager : MonoBehaviour
     // Fields
     [SerializeField] CardManager cardManager;
     [SerializeField] betUI betUI;
+
     public static bool makeBet = false;
     public static bool dealersTurn = false;
+    public static bool deActivateTheButtons = false;
     // private Player user;
     // private Player dealer;
 
@@ -77,6 +79,8 @@ public class GameManager : MonoBehaviour
                     state = GameState.DealerDealing;
                     /*HERE MUNIR NEEDS TO CHANGE THE CODE SO ALL THE BETTING BUTTONS GET DISABLED SOMEHOW
                     */
+                    deActivateTheButtons = true;
+
                     makeBet = false;
                 }
                 break;

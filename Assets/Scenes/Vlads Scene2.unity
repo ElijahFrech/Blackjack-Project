@@ -1398,6 +1398,10 @@ MonoBehaviour:
   betAmountText: {fileID: 1543082016}
   currentBetText: {fileID: 1143287557}
   currentUserMoneyText: {fileID: 257907533}
+  upButton: {fileID: 1375614485}
+  downButton: {fileID: 471768128}
+  removeButton: {fileID: 474891962}
+  betButton: {fileID: 186664635}
   currentBetAmount: 0
 --- !u!114 &465442530
 MonoBehaviour:
