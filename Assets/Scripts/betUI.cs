@@ -37,8 +37,8 @@ public class betUI : MonoBehaviour
             counter++;
         }
         currentBet = betArray[counter];
-        Debug.Log("counter" + counter.ToString());
-        Debug.Log("CurrentBET" + currentBet.ToString());
+        // Debug.Log("counter" + counter.ToString());
+        // Debug.Log("CurrentBET" + currentBet.ToString());
 
 
         betAmountText.text = string.Format("{0}", currentBet);
@@ -52,8 +52,8 @@ public class betUI : MonoBehaviour
             counter--;
         }
         currentBet = betArray[counter];
-        Debug.Log("counter" + counter.ToString());
-        Debug.Log("CurrentBET" + currentBet.ToString());
+        // Debug.Log("counter" + counter.ToString());
+        // Debug.Log("CurrentBET" + currentBet.ToString());
 
 
 

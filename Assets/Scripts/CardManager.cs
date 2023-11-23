@@ -10,11 +10,15 @@ public class CardManager : MonoBehaviour
     [SerializeField] private GameObject dealerPlaceholder1;
     [SerializeField] private GameObject dealerPlaceholder2;
     [SerializeField] private GameObject hitButton;
-    private GameObject previousCard1;
-    private GameObject previousCard2;
+    private GameObject previousUserCard1;
+    private GameObject previousUserCard2;
+
+    private GameObject previousDealerCard1;
+    private GameObject previousDealerCard2;
     private int playerAmount;
     private int dealerAmount;
-    private Player player = new Player();
+    public Player player = new Player();
+    public Player dealer = new Player();
     private Vector3 lastSpawnedCardPosition;
 
 
@@ -58,8 +62,8 @@ public class CardManager : MonoBehaviour
             }
 
             ShuffleDecks();
+        }
     }
-}
 
     GameObject GetCardPrefab(Card.Suit suit, Card.Rank rank)
     {
@@ -117,13 +121,13 @@ public class CardManager : MonoBehaviour
         }
 
         // Destroy previously spawned cards
-        if (previousCard1 != null)
+        if (previousUserCard1 != null)
         {
-            Destroy(previousCard1);
+            Destroy(previousUserCard1);
         }
-        if (previousCard2 != null)
+        if (previousUserCard2 != null)
         {
-            Destroy(previousCard2);
+            Destroy(previousUserCard2);
         }
 
         // Get two random cards from the deck
@@ -135,9 +139,9 @@ public class CardManager : MonoBehaviour
         decks.Remove(card2);
 
         // Pass the cards to the player class
-        Debug.Log("First Card");
+        // Debug.Log("First Card");
         player.ReceiveCard(card1);
-         Debug.Log("Second Card");
+        // Debug.Log("Second Card");
         player.ReceiveCard(card2);
 
         // Instantiate the cards with default rotations
@@ -153,13 +157,13 @@ public class CardManager : MonoBehaviour
 
         //Debug.Log("Player card 1: " + card1.suit + card1.rank);
         //Debug.Log("Player card 2: " + card2.suit + card2.rank);
-       // playerAmount = (int)card1.rank + (int)card2.rank;
+        // playerAmount = (int)card1.rank + (int)card2.rank;
         //Debug.Log("Player Sum: " + playerAmount);
 
 
         // Set the current cards as the previous cards
-        previousCard1 = card1Object;
-        previousCard2 = card2Object;
+        previousUserCard1 = card1Object;
+        previousUserCard2 = card2Object;
 
         hitButton.SetActive(true);
     }
@@ -188,11 +192,13 @@ public class CardManager : MonoBehaviour
 
         if (lastSpawnedCardPosition == Vector3.zero) // Initial spawn
         {
-            spawnPosition = card2Placeholder.transform.position + new Vector3(-0.15f, 0, 0);
+            spawnPosition = card2Placeholder.transform.position + new Vector3(-0.2f, 0.0001f, 0);
+            Debug.Log("FIRST"+spawnPosition);
         }
         else
         {
-            spawnPosition = lastSpawnedCardPosition + new Vector3(-0.15f, 0, 0);
+            spawnPosition = lastSpawnedCardPosition + new Vector3(-0.075f, 0.0001f, 0);
+            Debug.Log("NotFIRST"+spawnPosition);
         }
 
         // Instantiate the new card with default rotation
@@ -202,8 +208,8 @@ public class CardManager : MonoBehaviour
         newCardObject.transform.eulerAngles = new Vector3(0, 0, 180);
 
         // Log the newly drawn card
-       // Debug.Log("Player drew: " + newCard.rank + " of " + newCard.suit);
-        Debug.Log("Player's Card Amount: " + player.GetHandValue());
+        // Debug.Log("Player drew: " + newCard.rank + " of " + newCard.suit);
+        // Debug.Log("Player's Card Amount: " + player.GetHandValue());
         // Update the last spawned card's position
         lastSpawnedCardPosition = spawnPosition;
 
@@ -220,18 +226,21 @@ public class CardManager : MonoBehaviour
         }
 
         // Destroy previously spawned cards
-        if (previousCard1 != null)
+        if (previousDealerCard1 != null)
         {
-            Destroy(previousCard1);
+            Destroy(previousDealerCard1);
         }
-        if (previousCard2 != null)
+        if (previousDealerCard2 != null)
         {
-            Destroy(previousCard2);
+            Destroy(previousDealerCard2);
         }
 
         // Get two random cards from the deck
         Card card1 = decks[Random.Range(0, decks.Count)];
         Card card2 = decks[Random.Range(0, decks.Count)];
+        dealer.ReceiveCard(card1);
+        // Debug.Log("Second Card");
+        dealer.ReceiveCard(card2);
 
         // Remove the dealt cards from the deck
         decks.Remove(card1);
@@ -248,12 +257,12 @@ public class CardManager : MonoBehaviour
         MoveCardToPosition(card1Object, dealerPlaceholder1.transform.position);
         MoveCardToPosition(card2Object, dealerPlaceholder2.transform.position);
 
-        Debug.Log("Dealer card 1: " + card1.suit + card1.rank);
-        Debug.Log("Dealer card 2: " + card2.suit + card2.rank);
+        // Debug.Log("Dealer card 1: " + card1.suit + card1.rank);
+        // Debug.Log("Dealer card 2: " + card2.suit + card2.rank);
 
         // Set the current cards as the previous cards
-        previousCard1 = card1Object;
-        previousCard2 = card2Object;
+        previousDealerCard1 = card1Object;
+        previousDealerCard2 = card2Object;
     }
     void MoveCardToPosition(GameObject cardObject, Vector3 targetPosition)
     {
