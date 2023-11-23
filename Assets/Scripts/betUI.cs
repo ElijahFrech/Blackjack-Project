@@ -12,6 +12,8 @@ public class betUI : MonoBehaviour
     [SerializeField] private Button downButton;
     [SerializeField] private Button removeButton;
     [SerializeField] private Button betButton;
+    [SerializeField] private GameObject playButton;
+    [SerializeField] private GameObject standButton;
 
     int[] betArray = { 1, 5, 10, 25, 50, 100 };
 
@@ -29,18 +31,23 @@ public class betUI : MonoBehaviour
         betAmountText.text = string.Format("{0}", currentBet);
         currentUserMoneyText.text = string.Format("USER MONEY: {0} $", userMoney);
         currentBet = betArray[counter];
+        playButton.SetActive(false);
+        standButton.SetActive(false);
 
     }
 
     void Update()
     {
-        if (GameManager.deActivateTheButtons)
+        if (GameManager.deActivateUIButtons)
         {
             upButton.enabled = false;
             downButton.enabled = false;
             removeButton.enabled = false;
             betButton.enabled = false;
         }
+
+        currentBetText.text = string.Format("CURRENT BET: {0} $", currentBetAmount);
+        currentUserMoneyText.text = string.Format("USER MONEY: {0} $", userMoney);
     }
 
     //ADD AN IF THAT CHECKS IF WE BETTING LESS THAN USER MONEY
@@ -83,6 +90,16 @@ public class betUI : MonoBehaviour
 
             currentBetText.text = string.Format("CURRENT BET: {0} $", currentBetAmount);
             currentUserMoneyText.text = string.Format("USER MONEY: {0} $", userMoney);
+            
+            if(!(currentBetAmount == 0))
+            {
+                playButton.SetActive(true);
+                standButton.SetActive(true);
+            }else
+            {
+                playButton.SetActive(false);
+                standButton.SetActive(false);
+            }
         }
         else
         {

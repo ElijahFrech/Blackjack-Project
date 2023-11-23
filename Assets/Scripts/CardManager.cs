@@ -9,18 +9,19 @@ public class CardManager : MonoBehaviour
     [SerializeField] private GameObject card2Placeholder;
     [SerializeField] private GameObject dealerPlaceholder1;
     [SerializeField] private GameObject dealerPlaceholder2;
-    [SerializeField] private GameObject hitButton;
+
     private GameObject previousUserCard1;
     private GameObject previousUserCard2;
 
     private GameObject previousDealerCard1;
     private GameObject previousDealerCard2;
-    private int playerAmount;
-    private int dealerAmount;
+ 
     public Player player = new Player();
     public Player dealer = new Player();
-    private Vector3 lastSpawnedCardPosition;
+    private Vector3 playerLastSpawnedCardPosition;
+    private Vector3 dealerLastSpawnedCardPosition;
     private List<GameObject> playerCardsHit = new List<GameObject>();
+    private List<GameObject> dealerCardsHit = new List<GameObject>();
 
     //public bool makeBet = false;
     public List<Card> decks = new List<Card>();
@@ -34,7 +35,6 @@ public class CardManager : MonoBehaviour
         totalCardsInDeck = decks.Count;
         //DealCards();
         //DealerCards();
-        hitButton.SetActive(false);
     }
 
     void InitializeDecks()
@@ -117,7 +117,7 @@ public class CardManager : MonoBehaviour
     {
         GameManager.MakeBet = false;
         // Reset the last spawned card's position
-        lastSpawnedCardPosition = Vector3.zero;
+        playerLastSpawnedCardPosition = Vector3.zero;
 
         player.ClearHand();
         // Destroy all cards in the playerCards list
@@ -185,21 +185,12 @@ public class CardManager : MonoBehaviour
         // Set the current cards as the previous cards
         previousUserCard1 = card1Object;
         previousUserCard2 = card2Object;
-        if (player.GetHandValue() == 21)
-        {
-            hitButton.SetActive(false);
-        }
-        else
-        {
-            hitButton.SetActive(true);
-        }
 
     }
 
     public void PlayerHit()
     {
-
-        if (decks.Count == 0)
+        if (decks.Count < 10)
         {
             Debug.LogWarning("No more cards in the deck.");
             return;
@@ -219,14 +210,14 @@ public class CardManager : MonoBehaviour
         // Calculate the position for the new card
         Vector3 spawnPosition;
 
-        if (lastSpawnedCardPosition == Vector3.zero) // Initial spawn
+        if (playerLastSpawnedCardPosition == Vector3.zero) // Initial spawn
         {
-            spawnPosition = card2Placeholder.transform.position + new Vector3(-0.2f, 0.0001f, 0);
+            spawnPosition = card2Placeholder.transform.position + new Vector3(-0.040f, 0.001f, 0.030f);
             //Debug.Log("FIRST" + spawnPosition);
         }
         else
         {
-            spawnPosition = lastSpawnedCardPosition + new Vector3(-0.075f, 0.0001f, 0);
+            spawnPosition = playerLastSpawnedCardPosition + new Vector3(-0.040f, 0.001f, 0.030f);
             //Debug.Log("NotFIRST" + spawnPosition);
         }
 
@@ -242,32 +233,31 @@ public class CardManager : MonoBehaviour
         // Debug.Log("Player drew: " + newCard.rank + " of " + newCard.suit);
         // Debug.Log("Player's Card Amount: " + player.GetHandValue());
         // Update the last spawned card's position
-        lastSpawnedCardPosition = spawnPosition;
-        if (player.GetHandValue() >= 21)
-        {
-            hitButton.SetActive(false);
-        }
-
-
+        playerLastSpawnedCardPosition = spawnPosition;
     }
-
 
     public void DealerCards()
     {
-        if (decks.Count < 2)
+        dealer.ClearHand();
+
+        if (decks.Count < 10)
         {
             Debug.LogWarning("Not enough cards to deal.");
             return;
         }
 
-        // Destroy previously spawned cards
-        if (previousDealerCard1 != null)
+        // Destroy all cards in the dealerCards list
+        // Check if the dealerCards list is not empty
+        if (dealerCardsHit.Count > 0)
         {
-            Destroy(previousDealerCard1);
-        }
-        if (previousDealerCard2 != null)
-        {
-            Destroy(previousDealerCard2);
+            // Destroy all cards in the playerCardsHit list
+            foreach (GameObject card in dealerCardsHit)
+            {
+                Destroy(card);
+            }
+
+            // Clear the playerCardsHit list
+            dealerCardsHit.Clear();
         }
 
         // Get two random cards from the deck
@@ -286,11 +276,13 @@ public class CardManager : MonoBehaviour
         GameObject card2Object = Instantiate(card2.cardPrefab, spawnPoint.transform.position, Quaternion.identity);
 
         // Set the z rotation to 180 degrees
-        card1Object.transform.eulerAngles = new Vector3(0, 0, 180);
-        card2Object.transform.eulerAngles = new Vector3(0, 0, 0);
+        card1Object.transform.eulerAngles = new Vector3(0, 0, 0);
+        card2Object.transform.eulerAngles = new Vector3(0, 0, 180);
 
-        MoveCardToPosition(card1Object, dealerPlaceholder1.transform.position);
-        MoveCardToPosition(card2Object, dealerPlaceholder2.transform.position);
+        MoveCardToPosition(card1Object, dealerPlaceholder2.transform.position);
+        MoveCardToPosition(card2Object, dealerPlaceholder1.transform.position);
+
+        dealerLastSpawnedCardPosition = card2Object.transform.position;
 
         // Debug.Log("Dealer card 1: " + card1.suit + card1.rank);
         // Debug.Log("Dealer card 2: " + card2.suit + card2.rank);
@@ -317,24 +309,52 @@ public class CardManager : MonoBehaviour
 
     public void DealerHit()
     {
+        // Get a random card from the deck
+        Card newCard = decks[Random.Range(0, decks.Count)];
 
+        // Pass the new card to the dealer class
+        dealer.ReceiveCard(newCard);
 
+        // Remove the dealt card from the deck
+        decks.Remove(newCard);
+
+        // Calculate the position for the new card
+        Vector3 spawnPosition = dealerLastSpawnedCardPosition + new Vector3(-0.01f, 0, 0);
+
+        //if (playerLastSpawnedCardPosition == Vector3.zero) // Initial spawn
+        //{
+        //    spawnPosition = card2Placeholder.transform.position + new Vector3(-0.040f, 0.001f, 0.030f);
+        //    //Debug.Log("FIRST" + spawnPosition);
+        //}
+        //else
+        //{
+
+        //    //Debug.Log("NotFIRST" + spawnPosition);
+        //}
+
+        // Instantiate the new card with default rotation
+        GameObject newCardObject = Instantiate(newCard.cardPrefab, spawnPosition, Quaternion.identity);
+
+        dealerCardsHit.Add(newCardObject);
+
+        // Set the z rotation to 180 degrees
+        newCardObject.transform.eulerAngles = new Vector3(0, 0, 180);
+
+        // Log the newly drawn card
+        // Debug.Log("Player drew: " + newCard.rank + " of " + newCard.suit);
+        // Debug.Log("Player's Card Amount: " + player.GetHandValue());
+        // Update the last spawned card's position
+        dealerLastSpawnedCardPosition = spawnPosition;
     }
-
-    public void MakeBet()
+ 
+    //Dealer analyzes the hand value and reacts according to it.
+    public void rotateDealerCard()
     {
-        hitButton.SetActive(true);
-        GameManager.MakeBet = true;
+        //Turn the around the faced up card
+        previousDealerCard2.transform.eulerAngles = new Vector3(0, 0, 180);
+        //MoveCardToPosition(previousDealerCard2, card2Placeholder.transform.position);
+        Debug.Log("Face UP");
     }
-
-    public void DealersTurn()
-    {
-        GameManager.DealersTurn = true;
-    }
-
-
-
-
     // Other functions like ReturnUsedCardsToDeck, CheckReshuffleCondition, etc.
 
     // ...
