@@ -51,7 +51,7 @@ public class VRMouseMovement : MonoBehaviour
 
                 }
                 else if (name == "Interactable2")
-                {   
+                {
 
                     cardManager.DealersTurn();
                     //cardManager.DealerCards();
@@ -60,7 +60,8 @@ public class VRMouseMovement : MonoBehaviour
                 else if (name == "Interactable3")
                 {
                     cardManager.PlayerHit();
-                }else if (name == "Interactable4")
+                }
+                else if (name == "Interactable4")
                 {
                     cardManager.MakeBet();
                 }

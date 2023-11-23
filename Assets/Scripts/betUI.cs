@@ -21,8 +21,8 @@ public class betUI : MonoBehaviour
     public int userMoney = 500;
 
     int counter;
-    
-  
+
+
     // Start is called before the first frame update
 
     void Start()
@@ -37,13 +37,13 @@ public class betUI : MonoBehaviour
 
     void Update()
     {
-        if(GameManager.deActivateTheButtons)
+        if (GameManager.deActivateTheButtons)
         {
             upButton.enabled = false;
             downButton.enabled = false;
             removeButton.enabled = false;
             betButton.enabled = false;
-        }    
+        }
     }
 
     //ADD AN IF THAT CHECKS IF WE BETTING LESS THAN USER MONEY
@@ -101,7 +101,8 @@ public class betUI : MonoBehaviour
             currentBetAmount -= currentBet;
         }
         else
-        { Debug.Log("You cant remove more bets than you have in your betting stake.");
+        {
+            Debug.Log("You cant remove more bets than you have in your betting stake.");
         }
 
         currentBetText.text = string.Format("CURRENT BET: {0} $", currentBetAmount);

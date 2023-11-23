@@ -9,7 +9,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] betUI betUI;
     public static bool makeBet = false;
     public static bool dealersTurn = false;
-public static bool deActivateTheButtons = false;
+    public static bool deActivateTheButtons = false;
     // private Player user;
     // private Player dealer;
 
@@ -32,7 +32,7 @@ public static bool deActivateTheButtons = false;
         Busted,
     };
 
-   private GameState state;
+    private GameState state;
 
     DealerState GetDealerState()
     {
@@ -52,7 +52,7 @@ public static bool deActivateTheButtons = false;
     // Start is called before the first frame update
     void Start()
     {
-        
+
         // user = new Player();
         // dealer = new Player();
 
@@ -67,19 +67,19 @@ public static bool deActivateTheButtons = false;
     void Update()
     {
 
-//Debug.Log(cardManager.player.GetHandValue());
-//Debug.Log(betUI.currentBetAmount);
-//Debug.Log(makeBet);
+        //Debug.Log(cardManager.player.GetHandValue());
+        //Debug.Log(betUI.currentBetAmount);
+        //Debug.Log(makeBet);
         switch (state)
         {
             case GameState.PlayerBetting:
-              /*DISABLE HIT AND STAND BUTTONS EXCEPT PLAY SO THE PLAYER HAS TO ACCEPT THE BET BEFORE HITTING OR STANDING*/
+                /*DISABLE HIT AND STAND BUTTONS EXCEPT PLAY SO THE PLAYER HAS TO ACCEPT THE BET BEFORE HITTING OR STANDING*/
                 if (makeBet) /*WHEN CLICKING ON PLAY BUTTON THE STATE GETS CHANGED AND THE PLAYER CAN HIT OR STAND*/
                 {
                     state = GameState.DealerDealing;
                     /*HERE MUNIR NEEDS TO CHANGE THE CODE SO ALL THE BETTING BUTTONS GET DISABLED SOMEHOW
                     *//*ENABLE HIT AND STAND*/
-					deActivateTheButtons = true;
+                    deActivateTheButtons = true;
                     makeBet = false;
                 }
                 break;
@@ -89,68 +89,74 @@ public static bool deActivateTheButtons = false;
                 state = GameState.PlayerTurn;
                 break;
             case GameState.PlayerTurn:
- /*THE USER CAN HIT BUT NOT STAND FOR THE MOMENT WE HAVE TO IMPLEMENT THAT */
-                Debug.Log("Player Turn");
-               Debug.Log(cardManager.player.GetHandValue());
-                if (cardManager.player.GetHandValue() > 21)
+                /*THE USER CAN HIT BUT NOT STAND FOR THE MOMENT WE HAVE TO IMPLEMENT THAT */
+                //Debug.Log("Player Turn");
+                // Debug.Log(cardManager.player.GetHandValue());
+                if (cardManager.player.GetHandValue() > 21) /*LOGIC FOR LOSING*/
                 {
                     Debug.Log(cardManager.player.GetHandValue());
                     /*IF PLAYER GETS BUSTED TAKE CURRENTBETAMOUNT IN BETUI AND SUBSTRACT IT FROM PLAYERBALANCE*/
                     betUI.userMoney = betUI.userMoney - betUI.currentBetAmount;
                     Debug.Log("USER MONEY" + betUI.userMoney);
                     Debug.Log("CURRENT BET AMOUNT" + betUI.currentBetAmount);
-                    
+
                     Debug.Log("Player Busted");
-                    state = GameState.DealerTurn;
-                    }
-                    break;
-///*HERE WE HAVE TO CREATE A BOOLEAN THAT CHANGES WHEN CLICKING THE STAND BUTTON  
-//}else if(bool standButtonWasHit = false)
-//                 { /*WHEN HITTING ON STAND AND NOT BEING BUSTED IT IS THE DEALER TURN TO PLAY*/
-//                     state = GameState.JustBecameDealerTurn;
-//                 }
-//                 break;
-            // case GameState.JustBecameDealerTurn:
-   /*TURNS FIRST CARD UPSIDE DOWN AND HITS */
-            //     cardManager.DealerCards();
-            //     state = GameState.DealerTurn;
-            //     break;
-            // case GameState.DealerTurn:
-            //     switch (GetDealerState())
-            //     {
-            //         case DealerState.MustHit:
-            //             cardManager.DealerHit();
-            //             break;
-            //         case DealerState.MustStay:
-            //             state = GameState.Push;
-            //             break;
-            //         case DealerState.Busted:
-            //             state = GameState.PlayerWin;
-            //             break;
-            //     }
-            //     break;
-            // case GameState.PlayerWin:
-            //     if (cardManager.player.GetHandValue() > 21)
-            //     {
-            //         state = GameState.DealerWin;
-            //     }
-            //     break;
-            // case GameState.DealerWin:
-            //     if (cardManager.dealer.GetHandValue() > 21)
-            //     {
-            //         state = GameState.PlayerWin;
-            //     }
-            //     break;
-            // case GameState.Push:
-            //     if (cardManager.player.GetHandValue() > 21)
-            //     {
-            //         state = GameState.DealerWin;
-            //     }
-            //     else if (cardManager.dealer.GetHandValue() > 21)
-            //     {
-            //         state = GameState.PlayerWin;
-            //     }
-            //     break;
+                    state = GameState.DealerWin;
+                }
+                else if (dealersTurn) /*HOW TO ADD THE MONEY IF THE PLAYER WINS*/
+                {
+
+                    Debug.Log("YOU WON BRO");
+                    //state = GameState.DealerTurn;
+                }
+                break;
+                ///*HERE WE HAVE TO CREATE A BOOLEAN THAT CHANGES WHEN CLICKING THE STAND BUTTON  
+                //}else if(bool standButtonWasHit = false)
+                //                 { /*WHEN HITTING ON STAND AND NOT BEING BUSTED IT IS THE DEALER TURN TO PLAY*/
+                //                     state = GameState.JustBecameDealerTurn;
+                //                 }
+                //                 break;
+                // case GameState.JustBecameDealerTurn:
+                /*TURNS FIRST CARD UPSIDE DOWN AND HITS */
+                //     cardManager.DealerCards();
+                //     state = GameState.DealerTurn;
+                //     break;
+                // case GameState.DealerTurn:
+                //     switch (GetDealerState())
+                //     {
+                //         case DealerState.MustHit:
+                //             cardManager.DealerHit();
+                //             break;
+                //         case DealerState.MustStay:
+                //             state = GameState.Push;
+                //             break;
+                //         case DealerState.Busted:
+                //             state = GameState.PlayerWin;
+                //             break;
+                //     }
+                //     break;
+                // case GameState.PlayerWin:
+                //     if (cardManager.player.GetHandValue() > 21)
+                //     {
+                //         state = GameState.DealerWin;
+                //     }
+                //     break;
+                // case GameState.DealerWin:
+                //     if (cardManager.dealer.GetHandValue() > 21)
+                //     {
+                //         state = GameState.PlayerWin;
+                //     }
+                //     break;
+                // case GameState.Push:
+                //     if (cardManager.player.GetHandValue() > 21)
+                //     {
+                //         state = GameState.DealerWin;
+                //     }
+                //     else if (cardManager.dealer.GetHandValue() > 21)
+                //     {
+                //         state = GameState.PlayerWin;
+                //     }
+                //     break;
         }
 
     }
