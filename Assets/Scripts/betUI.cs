@@ -28,7 +28,7 @@ public class betUI : MonoBehaviour
 
     }
 
-    //ADD AN IF THAT CHECKS IF WE BETTING LESS THAN POOL MONEY
+    //ADD AN IF THAT CHECKS IF WE BETTING LESS THAN USER MONEY
     public void increaseBet()
     {
 
