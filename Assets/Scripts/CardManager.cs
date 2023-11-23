@@ -222,12 +222,12 @@ public class CardManager : MonoBehaviour
         if (lastSpawnedCardPosition == Vector3.zero) // Initial spawn
         {
             spawnPosition = card2Placeholder.transform.position + new Vector3(-0.2f, 0.0001f, 0);
-            Debug.Log("FIRST" + spawnPosition);
+            //Debug.Log("FIRST" + spawnPosition);
         }
         else
         {
             spawnPosition = lastSpawnedCardPosition + new Vector3(-0.075f, 0.0001f, 0);
-            Debug.Log("NotFIRST" + spawnPosition);
+            //Debug.Log("NotFIRST" + spawnPosition);
         }
 
         // Instantiate the new card with default rotation

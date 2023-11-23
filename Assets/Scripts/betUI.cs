@@ -14,10 +14,15 @@ public class betUI : MonoBehaviour
     int currentBet = 1;
     public int currentBetAmount = 0;
 
-    int userMoney = 500;
+    public int userMoney = 500;
 
     int counter;
+    
+    void Update(){
+       // Debug.Log("bet ui USERMONEY"+userMoney);
+    }
     // Start is called before the first frame update
+
     void Start()
     {
         counter = 0;
