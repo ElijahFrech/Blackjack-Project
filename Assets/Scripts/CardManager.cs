@@ -20,6 +20,7 @@ public class CardManager : MonoBehaviour
     public Player player = new Player();
     public Player dealer = new Player();
     private Vector3 lastSpawnedCardPosition;
+    private List<GameObject> playerCardsHit = new List<GameObject>();
 
 
     public List<Card> decks = new List<Card>();
@@ -114,6 +115,26 @@ public class CardManager : MonoBehaviour
 
     public void DealCards()
     {
+
+        // Reset the last spawned card's position
+    lastSpawnedCardPosition = Vector3.zero; 
+
+        player.ClearHand();
+            // Destroy all cards in the playerCards list
+         // Check if the playerCards list is not empty
+    if (playerCardsHit.Count > 0)
+    {
+        // Destroy all cards in the playerCardsHit list
+        foreach (GameObject card in playerCardsHit)
+        {
+            Destroy(card);
+        }
+
+        // Clear the playerCardsHit list
+        playerCardsHit.Clear();
+    }
+
+
         if (decks.Count < 2)
         {
             Debug.LogWarning("Not enough cards to deal.");
@@ -164,12 +185,19 @@ public class CardManager : MonoBehaviour
         // Set the current cards as the previous cards
         previousUserCard1 = card1Object;
         previousUserCard2 = card2Object;
-
-        hitButton.SetActive(true);
+    if(player.GetHandValue() == 21)
+        {
+            hitButton.SetActive(false);
+        }else	
+        {
+            hitButton.SetActive(true);
+        }
+        
     }
 
     public void PlayerHit()
     {
+
         if (decks.Count == 0)
         {
             Debug.LogWarning("No more cards in the deck.");
@@ -193,16 +221,18 @@ public class CardManager : MonoBehaviour
         if (lastSpawnedCardPosition == Vector3.zero) // Initial spawn
         {
             spawnPosition = card2Placeholder.transform.position + new Vector3(-0.2f, 0.0001f, 0);
-            Debug.Log("FIRST"+spawnPosition);
+            Debug.Log("FIRST" + spawnPosition);
         }
         else
         {
             spawnPosition = lastSpawnedCardPosition + new Vector3(-0.075f, 0.0001f, 0);
-            Debug.Log("NotFIRST"+spawnPosition);
+            Debug.Log("NotFIRST" + spawnPosition);
         }
 
         // Instantiate the new card with default rotation
         GameObject newCardObject = Instantiate(newCard.cardPrefab, spawnPosition, Quaternion.identity);
+
+        playerCardsHit.Add(newCardObject);
 
         // Set the z rotation to 180 degrees
         newCardObject.transform.eulerAngles = new Vector3(0, 0, 180);
@@ -212,6 +242,10 @@ public class CardManager : MonoBehaviour
         // Debug.Log("Player's Card Amount: " + player.GetHandValue());
         // Update the last spawned card's position
         lastSpawnedCardPosition = spawnPosition;
+        if (player.GetHandValue() >= 21)
+        {
+            hitButton.SetActive(false);
+        }
 
 
     }

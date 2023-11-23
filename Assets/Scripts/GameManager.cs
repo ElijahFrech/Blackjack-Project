@@ -5,11 +5,13 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     // Fields
+    [SerializeField] CardManager cardManager;
+    [SerializeField] betUI betUI;
     private static bool makeBet = false;
-    private Player user;
-    private Player dealer;
+    // private Player user;
+    // private Player dealer;
 
- public enum GameState
+    public enum GameState
     {
         PlayerBetting,
         DealerDealing,
@@ -20,7 +22,7 @@ public class GameManager : MonoBehaviour
         DealerWin,
         Push,
     };
-    
+
     public enum DealerState
     {
         MustHit,
@@ -28,10 +30,10 @@ public class GameManager : MonoBehaviour
         Busted,
     };
 
-     DealerState GetDealerState()
+    DealerState GetDealerState()
     {
-        int sum = dealer.GetHandValue();
-        
+        int sum = cardManager.dealer.GetHandValue();
+
         if (sum < 17)   // magic number
             return DealerState.MustHit;
         else if (sum >= 17 && sum <= 21)    // magic number
@@ -46,15 +48,17 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
-        user = new Player();
-        dealer = new Player();
-        
+    
+        // user = new Player();
+        // dealer = new Player();
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+
+Debug.Log(cardManager.player.GetHandValue());
+
     }
 }
