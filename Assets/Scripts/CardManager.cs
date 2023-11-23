@@ -115,24 +115,24 @@ public class CardManager : MonoBehaviour
 
     public void DealCards()
     {
-GameManager.MakeBet = false;
+        GameManager.MakeBet = false;
         // Reset the last spawned card's position
-    lastSpawnedCardPosition = Vector3.zero; 
+        lastSpawnedCardPosition = Vector3.zero;
 
         player.ClearHand();
-            // Destroy all cards in the playerCards list
-         // Check if the playerCards list is not empty
-    if (playerCardsHit.Count > 0)
-    {
-        // Destroy all cards in the playerCardsHit list
-        foreach (GameObject card in playerCardsHit)
+        // Destroy all cards in the playerCards list
+        // Check if the playerCards list is not empty
+        if (playerCardsHit.Count > 0)
         {
-            Destroy(card);
-        }
+            // Destroy all cards in the playerCardsHit list
+            foreach (GameObject card in playerCardsHit)
+            {
+                Destroy(card);
+            }
 
-        // Clear the playerCardsHit list
-        playerCardsHit.Clear();
-    }
+            // Clear the playerCardsHit list
+            playerCardsHit.Clear();
+        }
 
 
         if (decks.Count < 2)
@@ -185,14 +185,15 @@ GameManager.MakeBet = false;
         // Set the current cards as the previous cards
         previousUserCard1 = card1Object;
         previousUserCard2 = card2Object;
-    if(player.GetHandValue() == 21)
+        if (player.GetHandValue() == 21)
         {
             hitButton.SetActive(false);
-        }else	
+        }
+        else
         {
             hitButton.SetActive(true);
         }
-        
+
     }
 
     public void PlayerHit()
@@ -314,12 +315,24 @@ GameManager.MakeBet = false;
         cardObject.transform.position = targetPosition;
     }
 
-    public void MakeBet(){
+    public void DealerHit()
+    {
 
+
+    }
+
+    public void MakeBet()
+    {
+        hitButton.SetActive(true);
         GameManager.MakeBet = true;
     }
 
-  
+    public void DealersTurn()
+    {
+        GameManager.DealersTurn = true;
+    }
+
+
 
 
     // Other functions like ReturnUsedCardsToDeck, CheckReshuffleCondition, etc.

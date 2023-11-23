@@ -8,6 +8,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] CardManager cardManager;
     [SerializeField] betUI betUI;
     public static bool makeBet = false;
+    public static bool dealersTurn = false;
     // private Player user;
     // private Player dealer;
 
@@ -46,7 +47,7 @@ public class GameManager : MonoBehaviour
 
     //Public properties
     public static bool MakeBet { get { return makeBet; } set { makeBet = value; } }
-
+    public static bool DealersTurn { get { return dealersTurn; } set { dealersTurn = value; } }
     // Start is called before the first frame update
     void Start()
     {
@@ -67,67 +68,71 @@ public class GameManager : MonoBehaviour
 
 //Debug.Log(cardManager.player.GetHandValue());
 //Debug.Log(betUI.currentBetAmount);
-Debug.Log(makeBet);
-        // switch (state)
-        // {
-        //     case GameState.PlayerBetting:
-        //         if (makeBet)
-        //         {
-        //             cardManager.gameState = GameState.DealerDealing;
-        //             makeBet = false;
-        //         }
-        //         break;
-        //     case GameState.DealerDealing:
-        //         cardManager.DealCards();
-        //         cardManager.gameState = GameState.PlayerTurn;
-        //         break;
-        //     case GameState.PlayerTurn:
-        //         if (cardManager.player.GetHandValue() > 21)
-        //         {
-        //             cardManager.gameState = GameState.DealerTurn;
-        //         }
-        //         break;
-        //     case GameState.JustBecameDealerTurn:
-        //         cardManager.DealerCards();
-        //         cardManager.gameState = GameState.DealerTurn;
-        //         break;
-        //     case GameState.DealerTurn:
-        //         switch (GetDealerState())
-        //         {
-        //             case DealerState.MustHit:
-        //                 cardManager.DealerHit();
-        //                 break;
-        //             case DealerState.MustStay:
-        //                 cardManager.gameState = GameState.Push;
-        //                 break;
-        //             case DealerState.Busted:
-        //                 cardManager.gameState = GameState.PlayerWin;
-        //                 break;
-        //         }
-        //         break;
-        //     case GameState.PlayerWin:
-        //         if (cardManager.player.GetHandValue() > 21)
-        //         {
-        //             cardManager.gameState = GameState.DealerWin;
-        //         }
-        //         break;
-        //     case GameState.DealerWin:
-        //         if (cardManager.dealer.GetHandValue() > 21)
-        //         {
-        //             cardManager.gameState = GameState.PlayerWin;
-        //         }
-        //         break;
-        //     case GameState.Push:
-        //         if (cardManager.player.GetHandValue() > 21)
-        //         {
-        //             cardManager.gameState = GameState.DealerWin;
-        //         }
-        //         else if (cardManager.dealer.GetHandValue() > 21)
-        //         {
-        //             cardManager.gameState = GameState.PlayerWin;
-        //         }
-        //         break;
-        // }
+//Debug.Log(makeBet);
+        switch (state)
+        {
+            case GameState.PlayerBetting:
+                if (makeBet)
+                {
+                    state = GameState.DealerDealing;
+                    /*HERE MUNIR NEEDS TO CHANGE THE CODE SO ALL THE BETTING BUTTONS GET DISABLED SOMEHOW
+                    */
+                    makeBet = false;
+                }
+                break;
+            case GameState.DealerDealing:
+                cardManager.DealerCards();
+                cardManager.DealCards();
+                state = GameState.PlayerTurn;
+                break;
+            case GameState.PlayerTurn:
+                if (cardManager.player.GetHandValue() > 21)
+                {
+                    Debug.Log("Player Busted");
+                    state = GameState.DealerTurn;
+                }
+                break;
+            // case GameState.JustBecameDealerTurn:
+            //     cardManager.DealerCards();
+            //     state = GameState.DealerTurn;
+            //     break;
+            // case GameState.DealerTurn:
+            //     switch (GetDealerState())
+            //     {
+            //         case DealerState.MustHit:
+            //             cardManager.DealerHit();
+            //             break;
+            //         case DealerState.MustStay:
+            //             state = GameState.Push;
+            //             break;
+            //         case DealerState.Busted:
+            //             state = GameState.PlayerWin;
+            //             break;
+            //     }
+            //     break;
+            // case GameState.PlayerWin:
+            //     if (cardManager.player.GetHandValue() > 21)
+            //     {
+            //         state = GameState.DealerWin;
+            //     }
+            //     break;
+            // case GameState.DealerWin:
+            //     if (cardManager.dealer.GetHandValue() > 21)
+            //     {
+            //         state = GameState.PlayerWin;
+            //     }
+            //     break;
+            // case GameState.Push:
+            //     if (cardManager.player.GetHandValue() > 21)
+            //     {
+            //         state = GameState.DealerWin;
+            //     }
+            //     else if (cardManager.dealer.GetHandValue() > 21)
+            //     {
+            //         state = GameState.PlayerWin;
+            //     }
+            //     break;
+        }
 
     }
 }
