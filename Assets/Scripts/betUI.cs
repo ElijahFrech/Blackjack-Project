@@ -21,12 +21,6 @@ public class betUI : MonoBehaviour
     public int userMoney = 500;
 
     int counter;
-<<<<<<< HEAD
-=======
-
-
-    // Start is called before the first frame update
->>>>>>> 6a5f84a2d1b019624e8ccb26f7f0fb97b7b40d37
 
     void Start()
     {
