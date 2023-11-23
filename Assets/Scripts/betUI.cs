@@ -12,7 +12,7 @@ public class betUI : MonoBehaviour
     int[] betArray = { 1, 5, 10, 25, 50, 100 };
 
     int currentBet = 1;
-    int currentBetAmount = 0;
+    public int currentBetAmount = 0;
 
     int userMoney = 500;
 

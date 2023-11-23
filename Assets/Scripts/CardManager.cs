@@ -22,7 +22,7 @@ public class CardManager : MonoBehaviour
     private Vector3 lastSpawnedCardPosition;
     private List<GameObject> playerCardsHit = new List<GameObject>();
 
-
+    //public bool makeBet = false;
     public List<Card> decks = new List<Card>();
     public List<Card> usedCards = new List<Card>();
 
@@ -115,7 +115,7 @@ public class CardManager : MonoBehaviour
 
     public void DealCards()
     {
-
+GameManager.MakeBet = false;
         // Reset the last spawned card's position
     lastSpawnedCardPosition = Vector3.zero; 
 
@@ -314,7 +314,12 @@ public class CardManager : MonoBehaviour
         cardObject.transform.position = targetPosition;
     }
 
+    public void MakeBet(){
 
+        GameManager.MakeBet = true;
+    }
+
+  
 
 
     // Other functions like ReturnUsedCardsToDeck, CheckReshuffleCondition, etc.

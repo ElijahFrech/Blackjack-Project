@@ -46,13 +46,14 @@ public class VRMouseMovement : MonoBehaviour
 
 
                     cardManager.DealCards();
+                    cardManager.DealerCards();
 
 
                 }
                 else if (name == "Interactable2")
-                {
-
-                    cardManager.DealerCards();
+                {   
+                    GameManager.MakeBet = true;
+                    //cardManager.DealerCards();
 
                 }
                 else if (name == "Interactable3")
