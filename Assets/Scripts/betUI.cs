@@ -8,6 +8,10 @@ public class betUI : MonoBehaviour
     [SerializeField] private Text betAmountText;
     [SerializeField] private Text currentBetText;
     [SerializeField] private Text currentUserMoneyText;
+    [SerializeField] private Button upButton;
+    [SerializeField] private Button downButton;
+    [SerializeField] private Button removeButton;
+    [SerializeField] private Button betButton;
 
     int[] betArray = { 1, 5, 10, 25, 50, 100 };
 
@@ -31,6 +35,17 @@ public class betUI : MonoBehaviour
         currentUserMoneyText.text = string.Format("USER MONEY: {0} $", userMoney);
         currentBet = betArray[counter];
 
+    }
+
+    void Update()
+    {
+        if(GameManager.deActivateTheButtons)
+        {
+            upButton.enabled = false;
+            downButton.enabled = false;
+            removeButton.enabled = false;
+            betButton.enabled = false;
+        }    
     }
 
     //ADD AN IF THAT CHECKS IF WE BETTING LESS THAN USER MONEY

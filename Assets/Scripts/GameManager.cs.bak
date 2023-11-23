@@ -7,9 +7,10 @@ public class GameManager : MonoBehaviour
     // Fields
     [SerializeField] CardManager cardManager;
     [SerializeField] betUI betUI;
+
     public static bool makeBet = false;
     public static bool dealersTurn = false;
-public static bool deActivateTheButtons = false;
+    public static bool deActivateTheButtons = false;
     // private Player user;
     // private Player dealer;
 
@@ -73,24 +74,30 @@ public static bool deActivateTheButtons = false;
         switch (state)
         {
             case GameState.PlayerBetting:
-              /*DISABLE HIT AND STAND BUTTONS EXCEPT PLAY SO THE PLAYER HAS TO ACCEPT THE BET BEFORE HITTING OR STANDING*/
+            /*DISABLE HIT AND STAND BUTTONS EXCEPT PLAY SO THE PLAYER HAS TO ACCEPT THE BET BEFORE HITTING OR STANDING*/
                 if (makeBet) /*WHEN CLICKING ON PLAY BUTTON THE STATE GETS CHANGED AND THE PLAYER CAN HIT OR STAND*/
                 {
                     state = GameState.DealerDealing;
+<<<<<<< HEAD
+                    /*HERE MUNIR NEEDS TO CHANGE THE CODE SO ALL THE BETTING BUTTONS GET DISABLED SOMEHOW ALSO THE PLAY BUTTON 
+                    */ /*ENABLE HIT AND STAND*/
+=======
                     /*HERE MUNIR NEEDS TO CHANGE THE CODE SO ALL THE BETTING BUTTONS GET DISABLED SOMEHOW
-                    *//*ENABLE HIT AND STAND*/
-					deActivateTheButtons = true;
+                    */
+                    deActivateTheButtons = true;
+
+>>>>>>> c376d1ac3c9146c9a3e561839dcdc46b02b8cf6d
                     makeBet = false;
                 }
                 break;
             case GameState.DealerDealing:
+           
                 cardManager.DealerCards();
                 cardManager.DealCards();
                 state = GameState.PlayerTurn;
                 break;
             case GameState.PlayerTurn:
- /*THE USER CAN HIT BUT NOT STAND FOR THE MOMENT WE HAVE TO IMPLEMENT THAT */
-                
+            /*THE USER CAN HIT BUT NOT STAND FOR THE MOMENT WE HAVE TO IMPLEMENT THAT */
                 if (cardManager.player.GetHandValue() > 21)
                 {
 
@@ -101,13 +108,13 @@ public static bool deActivateTheButtons = false;
                     
                     Debug.Log("Player Busted");
                     state = GameState.DealerTurn;
-}else
+                }else
                 { /*WHEN HITTING ON STAND AND NOT BEING BUSTED IT IS THE DEALER TURN TO PLAY*/
                     state = GameState.JustBecameDealerTurn;
                 }
                 break;
             // case GameState.JustBecameDealerTurn:
-   /*TURNS FIRST CARD UPSIDE DOWN AND HITS */
+                /*TURNS FIRST CARD UPSIDE DOWN AND HITS */
             //     cardManager.DealerCards();
             //     state = GameState.DealerTurn;
             //     break;
