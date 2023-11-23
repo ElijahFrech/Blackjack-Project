@@ -9,7 +9,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] betUI betUI;
     public static bool makeBet = false;
     public static bool dealersTurn = false;
-public static bool deActivateTheButtons = false;
+    public static bool deActivateTheButtons = false;
     // private Player user;
     // private Player dealer;
 
