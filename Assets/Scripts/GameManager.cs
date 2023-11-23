@@ -90,10 +90,11 @@ public static bool deActivateTheButtons = false;
                 break;
             case GameState.PlayerTurn:
  /*THE USER CAN HIT BUT NOT STAND FOR THE MOMENT WE HAVE TO IMPLEMENT THAT */
-                
+                Debug.Log("Player Turn");
+               Debug.Log(cardManager.player.GetHandValue());
                 if (cardManager.player.GetHandValue() > 21)
                 {
-
+                    Debug.Log(cardManager.player.GetHandValue());
                     /*IF PLAYER GETS BUSTED TAKE CURRENTBETAMOUNT IN BETUI AND SUBSTRACT IT FROM PLAYERBALANCE*/
                     betUI.userMoney = betUI.userMoney - betUI.currentBetAmount;
                     Debug.Log("USER MONEY" + betUI.userMoney);
@@ -101,11 +102,14 @@ public static bool deActivateTheButtons = false;
                     
                     Debug.Log("Player Busted");
                     state = GameState.DealerTurn;
-}else
-                { /*WHEN HITTING ON STAND AND NOT BEING BUSTED IT IS THE DEALER TURN TO PLAY*/
-                    state = GameState.JustBecameDealerTurn;
-                }
-                break;
+                    }
+                    break;
+///*HERE WE HAVE TO CREATE A BOOLEAN THAT CHANGES WHEN CLICKING THE STAND BUTTON  
+//}else if(bool standButtonWasHit = false)
+//                 { /*WHEN HITTING ON STAND AND NOT BEING BUSTED IT IS THE DEALER TURN TO PLAY*/
+//                     state = GameState.JustBecameDealerTurn;
+//                 }
+//                 break;
             // case GameState.JustBecameDealerTurn:
    /*TURNS FIRST CARD UPSIDE DOWN AND HITS */
             //     cardManager.DealerCards();

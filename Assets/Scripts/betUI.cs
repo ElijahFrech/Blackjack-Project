@@ -22,9 +22,7 @@ public class betUI : MonoBehaviour
 
     int counter;
     
-    void Update(){
-       // Debug.Log("bet ui USERMONEY"+userMoney);
-    }
+  
     // Start is called before the first frame update
 
     void Start()
