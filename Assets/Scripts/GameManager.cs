@@ -76,6 +76,7 @@ public class GameManager : MonoBehaviour
         //Debug.Log(cardManager.player.GetHandValue());
         //Debug.Log(betUI.currentBetAmount);
         //Debug.Log(makeBet);
+        Debug.Log(deActivateUIButtons);
         switch (state)
         {
             case GameState.PlayerBetting:
@@ -136,6 +137,7 @@ public class GameManager : MonoBehaviour
 
                 //Disappear the "Play" button
                 playButton.SetActive(false);
+                standButton.SetActive(true);
 
                 //Validate if the player hand value is 21 or more
                 if (player.GetHandValue() >= 21)
@@ -150,6 +152,7 @@ public class GameManager : MonoBehaviour
                     else if (player.GetHandValue() > 21)
                     {
                         state = GameState.DealerWin;
+                        standButton.SetActive(false);
                     }
                 }
                 break;
@@ -173,7 +176,7 @@ public class GameManager : MonoBehaviour
                 }
                 else if (dealerHandValue < player.GetHandValue() && dealerHandValue < 17)
                 {
-                    cardManager.DealerHit();
+                    //cardManager.DealerHit();
 
                     if (dealerHandValue > player.GetHandValue() && !(dealerHandValue > 21))
                     {
@@ -202,9 +205,38 @@ public class GameManager : MonoBehaviour
             case GameState.PlayerWin:
                 int winningAmount = betUI.currentBetAmount * 2;
 
+                //player.ClearHand();
+                //dealer.ClearHand();
+
                 betUI.userMoney += winningAmount;                   //Pay the user the double amount of chips
                 deActivateUIButtons = false;
 
+                // Destroy previously spawned cards
+                if (cardManager.previousUserCard1 != null)
+                {
+                    Debug.Log("First card destroyed");
+                    Destroy(cardManager.previousUserCard1);
+                }
+                if (cardManager.previousUserCard2 != null)
+                {
+                    Debug.Log("Second card destroyed");
+                    Destroy(cardManager.previousUserCard2);
+                }
+
+                // Destroy all cards in the playerCards list
+                // Check if the playerCards list is not empty
+                if (cardManager.playerCardsHit.Count > 0)
+                {
+                    // Destroy all cards in the playerCardsHit list
+                    foreach (GameObject card in cardManager.playerCardsHit)
+                    {
+                        Destroy(card);
+                    }
+
+                    // Clear the playerCardsHit list
+                    cardManager.playerCardsHit.Clear();
+                }
+                
                 state = GameState.PlayerBetting;
 
                 break;
@@ -212,6 +244,32 @@ public class GameManager : MonoBehaviour
             case GameState.DealerWin:
                 betUI.currentBetAmount = 0;                         //Deduct the indicated(bet amount) amount of chips from player
                 deActivateUIButtons = false;
+
+                // Destroy previously spawned cards
+                if (cardManager.previousUserCard1 != null)
+                {
+                    Debug.Log("First card destroyed");
+                    Destroy(cardManager.previousUserCard1);
+                }
+                if (cardManager.previousUserCard2 != null)
+                {
+                    Debug.Log("Second card destroyed");
+                    Destroy(cardManager.previousUserCard2);
+                }
+
+                // Destroy all cards in the playerCards list
+                // Check if the playerCards list is not empty
+                if (cardManager.playerCardsHit.Count > 0)
+                {
+                    // Destroy all cards in the playerCardsHit list
+                    foreach (GameObject card in cardManager.playerCardsHit)
+                    {
+                        Destroy(card);
+                    }
+
+                    // Clear the playerCardsHit list
+                    cardManager.playerCardsHit.Clear();
+                }
 
                 state = GameState.PlayerBetting;
 

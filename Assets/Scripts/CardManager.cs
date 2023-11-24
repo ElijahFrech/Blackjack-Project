@@ -10,18 +10,18 @@ public class CardManager : MonoBehaviour
     [SerializeField] private GameObject dealerPlaceholder1;
     [SerializeField] private GameObject dealerPlaceholder2;
 
-    private GameObject previousUserCard1;
-    private GameObject previousUserCard2;
+    public GameObject previousUserCard1;
+    public GameObject previousUserCard2;
 
-    private GameObject previousDealerCard1;
-    private GameObject previousDealerCard2;
+    public GameObject previousDealerCard1;
+    public GameObject previousDealerCard2;
  
     public Player player = new Player();
     public Player dealer = new Player();
     private Vector3 playerLastSpawnedCardPosition;
     private Vector3 dealerLastSpawnedCardPosition;
-    private List<GameObject> playerCardsHit = new List<GameObject>();
-    private List<GameObject> dealerCardsHit = new List<GameObject>();
+    public List<GameObject> playerCardsHit = new List<GameObject>();
+    public List<GameObject> dealerCardsHit = new List<GameObject>();
 
     //public bool makeBet = false;
     public List<Card> decks = new List<Card>();
@@ -351,9 +351,8 @@ public class CardManager : MonoBehaviour
     public void rotateDealerCard()
     {
         //Turn the around the faced up card
-        previousDealerCard2.transform.eulerAngles = new Vector3(0, 0, 180);
+        previousDealerCard1.transform.eulerAngles = new Vector3(0, 0, 180);
         //MoveCardToPosition(previousDealerCard2, card2Placeholder.transform.position);
-        Debug.Log("Face UP");
     }
     // Other functions like ReturnUsedCardsToDeck, CheckReshuffleCondition, etc.
 

@@ -45,6 +45,13 @@ public class betUI : MonoBehaviour
             removeButton.enabled = false;
             betButton.enabled = false;
         }
+        else
+        {
+            upButton.enabled = true;
+            downButton.enabled = true;
+            removeButton.enabled = true;
+            betButton.enabled = true;
+        }
 
         currentBetText.text = string.Format("CURRENT BET: {0} $", currentBetAmount);
         currentUserMoneyText.text = string.Format("USER MONEY: {0} $", userMoney);
@@ -94,11 +101,11 @@ public class betUI : MonoBehaviour
             if(!(currentBetAmount == 0))
             {
                 playButton.SetActive(true);
-                standButton.SetActive(true);
+                //standButton.SetActive(true);
             }else
             {
                 playButton.SetActive(false);
-                standButton.SetActive(false);
+                //standButton.SetActive(false);
             }
         }
         else
@@ -113,6 +120,12 @@ public class betUI : MonoBehaviour
         {
             userMoney += currentBet;
             currentBetAmount -= currentBet;
+
+            if(currentBetAmount == 0)
+            {
+                playButton.SetActive(false);
+                standButton.SetActive(false);
+            }
         }
         else
         {
