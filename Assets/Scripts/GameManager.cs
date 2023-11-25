@@ -77,14 +77,24 @@ public class GameManager : MonoBehaviour
     {
         player = cardManager.player;
         dealer = cardManager.dealer;
+        //Debug.Log("DEALER =" +dealer.GetHandValue());
+        //Debug.Log("PLAYER=" + player.GetHandValue());
         //Debug.Log(cardManager.player.GetHandValue());
         //Debug.Log(betUI.currentBetAmount);
         //Debug.Log(makeBet);
-        Debug.Log(deActivateUIButtons);
+        //Debug.Log(deActivateUIButtons);
         switch (state)
         {
             case GameState.PlayerBetting:
-                betUI.OkayButtonClicked = false;
+
+               
+                if (betUI.OkayButtonClicked == true)
+                {
+                    deActivateUIButtons = false;
+                    DestroyCards();
+                    betUI.OkayButtonClicked = false;
+                }
+
                 /*DISABLE HIT AND STAND BUTTONS EXCEPT PLAY SO THE PLAYER HAS TO ACCEPT THE BET BEFORE HITTING OR STANDING*/
                 if (makeBet) /*WHEN CLICKING ON PLAY BUTTON THE STATE GETS CHANGED AND THE PLAYER CAN HIT OR STAND*/
                 {
@@ -148,6 +158,7 @@ public class GameManager : MonoBehaviour
                 //Validate if the player hand value is 21 or more
                 if (player.GetHandValue() >= 21)
                 {
+                    cardManager.rotateDealerCard();
                     hitButton.SetActive(false);
                     deActivateUIButtons = false;
 
@@ -169,16 +180,41 @@ public class GameManager : MonoBehaviour
                 standButton.SetActive(false);
 
                 //Rotate dealer's second card
-                cardManager.rotateDealerCard();
+
+                //cardManager.rotateDealerCard();
 
                 //Dealer's hand value
-                int dealerHandValue = dealer.GetHandValue();
+               // int dealerHandValue = dealer.GetHandValue();
+
+
+                if(dealer.GetHandValue() < 17)
+                {
+                    cardManager.DealerHit();
+                }
+                else if(dealer.GetHandValue() > 21)
+                {
+                    state = GameState.PlayerWin;
+                }
+                else if(dealer.GetHandValue() > player.GetHandValue())
+                {
+                    state = GameState.DealerWin;
+                }
+                else if (dealer.GetHandValue() == player.GetHandValue())
+                {
+                    state = GameState.Push;
+
+                }
+                else
+                {
+                    //cardManager.DealerHit();
+                }
+                break;
+
+                /*
 
                 if (dealerHandValue > player.GetHandValue() && dealerHandValue >= 17)
                 {
                     state = GameState.DealerWin;
-                    
-
                 }
                 else if (dealerHandValue < player.GetHandValue() && dealerHandValue < 17)
                 {
@@ -206,38 +242,21 @@ public class GameManager : MonoBehaviour
                     state = GameState.Push;
                     
                 }
-                break;
+                break;*/
 
             case GameState.PlayerWin:
                 int winningAmount = betUI.currentBetAmount * 2;
 
                 betUI.userMoney += winningAmount;                   //Pay the user the double amount of chips
-                deActivateUIButtons = false;
-
-                //player.ClearHand();
-                //dealer.ClearHand();
-
-                //// Destroy previously spawned cards
-                //if (cardManager.previousUserCard1 != null)
-                //{
-                //    Debug.Log("First card destroyed");
-                //    Destroy(cardManager.previousUserCard1);
-                //}
-                //if (cardManager.previousUserCard2 != null)
-                //{
-                //    Debug.Log("Second card destroyed");
-                //    Destroy(cardManager.previousUserCard2);
-                //}
-
-                //// Destroy all cards in the playerCards list
-                //// Check if the playerCards list is not empty
+                //deActivateUIButtons = false;
 
                 winOrLoseText.text = "You Won";
                 winOrLosePanel.SetActive(true);
+                Debug.Log("Player won");
 
                 //if (betUI.OkayButtonClicked == true)
                 //{
-                DestroyCards();
+                //DestroyCards();
                 //}
                 
                 state = GameState.PlayerBetting;
@@ -246,33 +265,13 @@ public class GameManager : MonoBehaviour
 
             case GameState.DealerWin:
                 betUI.currentBetAmount = 0;                         //Deduct the indicated(bet amount) amount of chips from player
-                deActivateUIButtons = false;
-
-                //player.ClearHand();
-                //dealer.ClearHand();
-
-                // Destroy previously spawned cards
-                //if (cardManager.previousUserCard1 != null)
-                //{
-                //    Debug.Log("First card destroyed");
-                //    Destroy(cardManager.previousUserCard1);
-                //}
-                //if (cardManager.previousUserCard2 != null)
-                //{
-                //    Debug.Log("Second card destroyed");
-                //    Destroy(cardManager.previousUserCard2);
-                //}
-
-                // Destroy all cards in the playerCards list
-                // Check if the playerCards list is not empty
+                //deActivateUIButtons = false;
 
                 winOrLoseText.text = "You Lost";
                 winOrLosePanel.SetActive(true);
+                Debug.Log("Player lost");
 
-                //if (betUI.OkayButtonClicked == true)
-                //{
-                DestroyCards();
-                //}
+                
                 
                 state = GameState.PlayerBetting;
 
@@ -280,7 +279,10 @@ public class GameManager : MonoBehaviour
 
             case GameState.Push:
                 betUI.userMoney += betUI.currentBetAmount;          //Player neither win neither lose
-                deActivateUIButtons = false;
+                //deActivateUIButtons = false;
+
+                winOrLoseText.text = "It is a draw";
+                winOrLosePanel.SetActive(true);
 
                 state = GameState.PlayerBetting;
 
@@ -346,10 +348,9 @@ public class GameManager : MonoBehaviour
             {
                 Destroy(card);
             }
-
-            // Clear the playerCards list
-            cardManager.playerCards.Clear();
         }
+        // Clear the playerCards list
+        cardManager.playerCards.Clear();
 
         if (cardManager.dealerCards.Count > 0)
         {
@@ -358,10 +359,8 @@ public class GameManager : MonoBehaviour
             {
                 Destroy(card);
             }
-
-            // Clear the dealerCards list
-            cardManager.dealerCards.Clear();
-
         }
+        // Clear the dealerCards list
+        cardManager.dealerCards.Clear();
     }
 }

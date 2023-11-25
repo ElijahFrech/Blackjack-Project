@@ -5,13 +5,14 @@ using UnityEngine;
 public class Player
 {
     private List<Card> hand = new List<Card>();
-
+    private int counter;
     public void ReceiveCard(Card card)
     {
         hand.Add(card);
         foreach (Card c in hand)
-        {
-            //Debug.Log(c.ToString() + ", Rank: " + c.rank + ", Rank Value: " + (int)c.rank);
+        { 
+            //Debug.Log("card number " + counter +c.ToString() + ", Rank: " + c.rank + ", Rank Value: " + (int)c.rank);
+            //counter++;
         }
     
     }

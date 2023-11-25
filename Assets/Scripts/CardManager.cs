@@ -112,6 +112,8 @@ public class CardManager : MonoBehaviour
 
     public void DealCards()
     {
+        player.ClearHand();
+
         GameManager.MakeBet = false;
         // Reset the last spawned card's position
         playerLastSpawnedCardPosition = Vector3.zero;
@@ -239,7 +241,7 @@ public class CardManager : MonoBehaviour
         MoveCardToPosition(card1Object, dealerPlaceholder2.transform.position);
         MoveCardToPosition(card2Object, dealerPlaceholder1.transform.position);
 
-        dealerLastSpawnedCardPosition = card2Object.transform.position;
+        dealerLastSpawnedCardPosition = card1Object.transform.position;
 
         // Debug.Log("Dealer card 1: " + card1.suit + card1.rank);
         // Debug.Log("Dealer card 2: " + card2.suit + card2.rank);
@@ -276,7 +278,7 @@ public class CardManager : MonoBehaviour
         decks.Remove(newCard);
 
         // Calculate the position for the new card
-        Vector3 spawnPosition = dealerLastSpawnedCardPosition + new Vector3(-0.01f, 0, 0);
+        Vector3 spawnPosition = dealerLastSpawnedCardPosition + new Vector3(-0.15f, 0, 0);
 
         //if (playerLastSpawnedCardPosition == Vector3.zero) // Initial spawn
         //{
@@ -308,7 +310,8 @@ public class CardManager : MonoBehaviour
     public void rotateDealerCard()
     {
         //Turn the around the faced up card
-        dealerCards[1].transform.eulerAngles = new Vector3(0, 0, 180);
+        dealerCards[0].transform.eulerAngles = new Vector3(0, 0, 180);
+        Debug.Log("Fk vlad");
         //MoveCardToPosition(previousDealerCard2, card2Placeholder.transform.position);
     }
     // Other functions like ReturnUsedCardsToDeck, CheckReshuffleCondition, etc.

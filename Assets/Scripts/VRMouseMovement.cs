@@ -43,11 +43,13 @@ public class VRMouseMovement : MonoBehaviour
 
                 if (name == "Interactable")
                 {
-                    cardManager.DealCards();
+                    cardManager.DealerHit();
+                    //cardManager.DealCards();
                     //cardManager.DealerCards();
                 }
                 else if (name == "Interactable2")
                 {
+                    cardManager.rotateDealerCard();
                     GameManager.state = GameManager.GameState.DealerTurn;
                     //cardManager.DealersTurn();
                     //cardManager.DealerCards();
