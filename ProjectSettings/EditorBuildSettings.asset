@@ -5,15 +5,12 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/1 Start Scene.unity
     guid: 7776a0b6eb2f39940a5c18680ea837eb
-  - enabled: 0
-    path: Assets/Scenes/MunirScene.unity
-    guid: 0dba8581e7906a647b127565111b0a00
   - enabled: 1
-    path: Assets/Scenes/OLD VladScene 1.unity
-    guid: 197b9617e9aa24247aa0b7b71ccb87a9
+    path: Assets/Scenes/MunirSceneNew.unity
+    guid: c421c6f47b4357245b0d43e7d870cc70
   m_configObjects:
     Unity.XR.Oculus.Settings: {fileID: 11400000, guid: a9da7d71dd4c78943b2d21b0e6057528,
       type: 2}

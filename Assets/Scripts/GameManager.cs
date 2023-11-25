@@ -43,17 +43,7 @@ public class GameManager : MonoBehaviour
 
     public static GameState state;
 
-    DealerState GetDealerState()
-    {
-        int sum = cardManager.dealer.GetHandValue();
 
-        if (sum < 17)   // magic number
-            return DealerState.MustHit;
-        else if (sum >= 17 && sum <= 21)    // magic number
-            return DealerState.MustStay;
-        else
-            return DealerState.Busted;
-    }
 
     //Public properties
     public static bool MakeBet { get { return makeBet; } set { makeBet = value; } }
@@ -67,28 +57,24 @@ public class GameManager : MonoBehaviour
 
     }
 
-    // private void MakeBet(){
 
-    //     makeBet = true;
-    // }
 
     // Update is called once per frame
     void Update()
+    
+    
     {
+    
+    //Debug.Log(deActivateUIButtons);
         player = cardManager.player;
         dealer = cardManager.dealer;
-        //Debug.Log("DEALER =" +dealer.GetHandValue());
-        //Debug.Log("PLAYER=" + player.GetHandValue());
-        //Debug.Log(cardManager.player.GetHandValue());
-        //Debug.Log(betUI.currentBetAmount);
-        //Debug.Log(makeBet);
-        //Debug.Log(deActivateUIButtons);
+
         switch (state)
         {
             case GameState.PlayerBetting:
 
-               
-                if (betUI.OkayButtonClicked == true)
+
+                if (betUI.OkayButtonClicked)
                 {
                     deActivateUIButtons = false;
                     DestroyCards();
@@ -104,13 +90,7 @@ public class GameManager : MonoBehaviour
                     deActivateUIButtons = true;
                     makeBet = false;
                 }
-                else
-                {
-                    deActivateUIButtons = false;
-
-                    //playButton.SetActive(false);
-                    //standButton.SetActive(false);
-                }
+                
                 break;
             case GameState.DealerDealing:
                 cardManager.DealerCards();
@@ -129,26 +109,6 @@ public class GameManager : MonoBehaviour
 
                 break;
             case GameState.PlayerTurn:
-                /*THE USER CAN HIT BUT NOT STAND FOR THE MOMENT WE HAVE TO IMPLEMENT THAT */
-                //Debug.Log("Player Turn");
-                // Debug.Log(cardManager.player.GetHandValue());
-                //if (cardManager.player.GetHandValue() > 21) /*LOGIC FOR LOSING*/
-                //{
-                //    Debug.Log(cardManager.player.GetHandValue());
-                //    /*IF PLAYER GETS BUSTED TAKE CURRENTBETAMOUNT IN BETUI AND SUBSTRACT IT FROM PLAYERBALANCE*/
-                //    betUI.userMoney = betUI.userMoney - betUI.currentBetAmount;
-                //    Debug.Log("USER MONEY" + betUI.userMoney);
-                //    Debug.Log("CURRENT BET AMOUNT" + betUI.currentBetAmount);
-
-                //    Debug.Log("Player Busted");
-                //    state = GameState.DealerWin;
-                //}
-                //else if (dealersTurn) /*HOW TO ADD THE MONEY IF THE PLAYER WINS*/
-                //{
-
-                //    Debug.Log("YOU WON BRO");
-                //    //state = GameState.DealerTurn;
-                //}
 
                 //Debug.Log((player.hand.Count).ToString());
                 //Disappear the "Play" button
@@ -160,7 +120,7 @@ public class GameManager : MonoBehaviour
                 {
                     cardManager.rotateDealerCard();
                     hitButton.SetActive(false);
-                    deActivateUIButtons = false;
+                    
 
                     if (player.GetHandValue() == 21)
                     {
@@ -179,23 +139,18 @@ public class GameManager : MonoBehaviour
                 playButton.SetActive(false);
                 standButton.SetActive(false);
 
-                //Rotate dealer's second card
-
-                //cardManager.rotateDealerCard();
-
-                //Dealer's hand value
-               // int dealerHandValue = dealer.GetHandValue();
 
 
-                if(dealer.GetHandValue() < 17)
+
+                if (dealer.GetHandValue() < 17)
                 {
                     cardManager.DealerHit();
                 }
-                else if(dealer.GetHandValue() > 21)
+                else if (dealer.GetHandValue() > 21)
                 {
                     state = GameState.PlayerWin;
                 }
-                else if(dealer.GetHandValue() > player.GetHandValue())
+                else if (dealer.GetHandValue() > player.GetHandValue())
                 {
                     state = GameState.DealerWin;
                 }
@@ -203,46 +158,14 @@ public class GameManager : MonoBehaviour
                 {
                     state = GameState.Push;
 
+                }else if (dealer.GetHandValue() < player.GetHandValue()){
+                    state = GameState.PlayerWin;
+
                 }
-                else
-                {
-                    //cardManager.DealerHit();
-                }
+
                 break;
 
-                /*
 
-                if (dealerHandValue > player.GetHandValue() && dealerHandValue >= 17)
-                {
-                    state = GameState.DealerWin;
-                }
-                else if (dealerHandValue < player.GetHandValue() && dealerHandValue < 17)
-                {
-                    //cardManager.DealerHit();
-
-                    if (dealerHandValue > player.GetHandValue() && !(dealerHandValue > 21))
-                    {
-                        state = GameState.DealerWin;
-                        
-                    }
-                    else
-                    {
-                        state = GameState.PlayerWin;
-                        
-                    }
-
-                }
-                else if (player.GetHandValue() > 21) 
-                {
-                    state = GameState.DealerWin;
-                    
-
-                } else if (dealerHandValue == player.GetHandValue())
-                {
-                    state = GameState.Push;
-                    
-                }
-                break;*/
 
             case GameState.PlayerWin:
                 int winningAmount = betUI.currentBetAmount * 2;
@@ -254,11 +177,8 @@ public class GameManager : MonoBehaviour
                 winOrLosePanel.SetActive(true);
                 Debug.Log("Player won");
 
-                //if (betUI.OkayButtonClicked == true)
-                //{
-                //DestroyCards();
-                //}
-                
+
+
                 state = GameState.PlayerBetting;
 
                 break;
@@ -271,8 +191,8 @@ public class GameManager : MonoBehaviour
                 winOrLosePanel.SetActive(true);
                 Debug.Log("Player lost");
 
-                
-                
+
+
                 state = GameState.PlayerBetting;
 
                 break;
@@ -288,53 +208,7 @@ public class GameManager : MonoBehaviour
 
                 break;
 
-                ///*HERE WE HAVE TO CREATE A BOOLEAN THAT CHANGES WHEN CLICKING THE STAND BUTTON  
-                //}else if(bool standButtonWasHit = false)
-                //                 { /*WHEN HITTING ON STAND AND NOT BEING BUSTED IT IS THE DEALER TURN TO PLAY*/
-                //                     state = GameState.JustBecameDealerTurn;
-                //                 }
-                //                 break;
-                // case GameState.JustBecameDealerTurn:
-                /*TURNS FIRST CARD UPSIDE DOWN AND HITS */
-                //     cardManager.DealerCards();
-                //     state = GameState.DealerTurn;
-                //     break;
-                // case GameState.DealerTurn:
-                //     switch (GetDealerState())
-                //     {
-                //         case DealerState.MustHit:
-                //             cardManager.DealerHit();
-                //             break;
-                //         case DealerState.MustStay:
-                //             state = GameState.Push;
-                //             break;
-                //         case DealerState.Busted:
-                //             state = GameState.PlayerWin;
-                //             break;
-                //     }
-                //     break;
-                // case GameState.PlayerWin:
-                //     if (cardManager.player.GetHandValue() > 21)
-                //     {
-                //         state = GameState.DealerWin;
-                //     }
-                //     break;
-                // case GameState.DealerWin:
-                //     if (cardManager.dealer.GetHandValue() > 21)
-                //     {
-                //         state = GameState.PlayerWin;
-                //     }
-                //     break;
-                // case GameState.Push:
-                //     if (cardManager.player.GetHandValue() > 21)
-                //     {
-                //         state = GameState.DealerWin;
-                //     }
-                //     else if (cardManager.dealer.GetHandValue() > 21)
-                //     {
-                //         state = GameState.PlayerWin;
-                //     }
-                //     break;
+
         }
 
     }

@@ -314,6 +314,17 @@ public class CardManager : MonoBehaviour
         Debug.Log("Fk vlad");
         //MoveCardToPosition(previousDealerCard2, card2Placeholder.transform.position);
     }
+
+    public void makeBetButton(){
+
+                    GameManager.MakeBet = true;
+
+    }
+
+    public void standButton(){
+        rotateDealerCard();
+        GameManager.state = GameManager.GameState.DealerTurn;
+    }
     // Other functions like ReturnUsedCardsToDeck, CheckReshuffleCondition, etc.
 
     // ...

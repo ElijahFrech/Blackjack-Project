@@ -25,7 +25,7 @@ public class Player
         for (int i = 0; i < hand.Count; i++)
         {
             Card card = hand[i];
-            //Debug.Log("Card " + (i+1) + ": " + card.ToString() + ", Rank: " + card.rank + ", Rank Value: " + (int)card.rank);
+            Debug.Log("Card " + (i+1) + ": " + card.ToString() + ", Rank: " + card.rank + ", Rank Value: " + (int)card.rank);
 
             int cardValue = card.GetValue();
             totalValue += cardValue;

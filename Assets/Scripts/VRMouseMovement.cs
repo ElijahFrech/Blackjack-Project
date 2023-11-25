@@ -60,7 +60,7 @@ public class VRMouseMovement : MonoBehaviour
                 }
                 else if (name == "Interactable4")
                 {
-                    GameManager.MakeBet = true;
+                    cardManager.makeBetButton();
                 }
 
 
