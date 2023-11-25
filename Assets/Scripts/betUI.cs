@@ -19,9 +19,8 @@ public class betUI : MonoBehaviour
 
     int currentBet = 1;
     public int currentBetAmount = 0;
-
     public int userMoney = 500;
-
+    public bool okayButtonClicked = false;
     int counter;
 
     void Start()
@@ -136,4 +135,9 @@ public class betUI : MonoBehaviour
         currentUserMoneyText.text = string.Format("USER MONEY: {0} $", userMoney);
     }
 
+
+    public bool OkayButtonClicked { 
+        get { return okayButtonClicked; } 
+        set { okayButtonClicked = value; } 
+    }
 }

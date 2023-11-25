@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
@@ -10,6 +12,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject hitButton;
     [SerializeField] private GameObject playButton;
     [SerializeField] private GameObject standButton;
+    [SerializeField] private GameObject winOrLosePanel;
+    [SerializeField] private TextMeshProUGUI winOrLoseText;
 
     public static bool makeBet = false;
     public static bool dealersTurn = false;
@@ -80,6 +84,7 @@ public class GameManager : MonoBehaviour
         switch (state)
         {
             case GameState.PlayerBetting:
+                betUI.OkayButtonClicked = false;
                 /*DISABLE HIT AND STAND BUTTONS EXCEPT PLAY SO THE PLAYER HAS TO ACCEPT THE BET BEFORE HITTING OR STANDING*/
                 if (makeBet) /*WHEN CLICKING ON PLAY BUTTON THE STATE GETS CHANGED AND THE PLAYER CAN HIT OR STAND*/
                 {
@@ -135,6 +140,7 @@ public class GameManager : MonoBehaviour
                 //    //state = GameState.DealerTurn;
                 //}
 
+                //Debug.Log((player.hand.Count).ToString());
                 //Disappear the "Play" button
                 playButton.SetActive(false);
                 standButton.SetActive(true);
@@ -205,37 +211,34 @@ public class GameManager : MonoBehaviour
             case GameState.PlayerWin:
                 int winningAmount = betUI.currentBetAmount * 2;
 
-                //player.ClearHand();
-                //dealer.ClearHand();
-
                 betUI.userMoney += winningAmount;                   //Pay the user the double amount of chips
                 deActivateUIButtons = false;
 
-                // Destroy previously spawned cards
-                if (cardManager.previousUserCard1 != null)
-                {
-                    Debug.Log("First card destroyed");
-                    Destroy(cardManager.previousUserCard1);
-                }
-                if (cardManager.previousUserCard2 != null)
-                {
-                    Debug.Log("Second card destroyed");
-                    Destroy(cardManager.previousUserCard2);
-                }
+                //player.ClearHand();
+                //dealer.ClearHand();
 
-                // Destroy all cards in the playerCards list
-                // Check if the playerCards list is not empty
-                if (cardManager.playerCardsHit.Count > 0)
-                {
-                    // Destroy all cards in the playerCardsHit list
-                    foreach (GameObject card in cardManager.playerCardsHit)
-                    {
-                        Destroy(card);
-                    }
+                //// Destroy previously spawned cards
+                //if (cardManager.previousUserCard1 != null)
+                //{
+                //    Debug.Log("First card destroyed");
+                //    Destroy(cardManager.previousUserCard1);
+                //}
+                //if (cardManager.previousUserCard2 != null)
+                //{
+                //    Debug.Log("Second card destroyed");
+                //    Destroy(cardManager.previousUserCard2);
+                //}
 
-                    // Clear the playerCardsHit list
-                    cardManager.playerCardsHit.Clear();
-                }
+                //// Destroy all cards in the playerCards list
+                //// Check if the playerCards list is not empty
+
+                winOrLoseText.text = "You Won";
+                winOrLosePanel.SetActive(true);
+
+                //if (betUI.OkayButtonClicked == true)
+                //{
+                DestroyCards();
+                //}
                 
                 state = GameState.PlayerBetting;
 
@@ -245,32 +248,32 @@ public class GameManager : MonoBehaviour
                 betUI.currentBetAmount = 0;                         //Deduct the indicated(bet amount) amount of chips from player
                 deActivateUIButtons = false;
 
+                //player.ClearHand();
+                //dealer.ClearHand();
+
                 // Destroy previously spawned cards
-                if (cardManager.previousUserCard1 != null)
-                {
-                    Debug.Log("First card destroyed");
-                    Destroy(cardManager.previousUserCard1);
-                }
-                if (cardManager.previousUserCard2 != null)
-                {
-                    Debug.Log("Second card destroyed");
-                    Destroy(cardManager.previousUserCard2);
-                }
+                //if (cardManager.previousUserCard1 != null)
+                //{
+                //    Debug.Log("First card destroyed");
+                //    Destroy(cardManager.previousUserCard1);
+                //}
+                //if (cardManager.previousUserCard2 != null)
+                //{
+                //    Debug.Log("Second card destroyed");
+                //    Destroy(cardManager.previousUserCard2);
+                //}
 
                 // Destroy all cards in the playerCards list
                 // Check if the playerCards list is not empty
-                if (cardManager.playerCardsHit.Count > 0)
-                {
-                    // Destroy all cards in the playerCardsHit list
-                    foreach (GameObject card in cardManager.playerCardsHit)
-                    {
-                        Destroy(card);
-                    }
 
-                    // Clear the playerCardsHit list
-                    cardManager.playerCardsHit.Clear();
-                }
+                winOrLoseText.text = "You Lost";
+                winOrLosePanel.SetActive(true);
 
+                //if (betUI.OkayButtonClicked == true)
+                //{
+                DestroyCards();
+                //}
+                
                 state = GameState.PlayerBetting;
 
                 break;
@@ -332,5 +335,33 @@ public class GameManager : MonoBehaviour
                 //     break;
         }
 
+    }
+
+    private void DestroyCards()
+    {
+        if (cardManager.playerCards.Count > 0)
+        {
+            // Destroy all the player cards
+            foreach (GameObject card in cardManager.playerCards)
+            {
+                Destroy(card);
+            }
+
+            // Clear the playerCards list
+            cardManager.playerCards.Clear();
+        }
+
+        if (cardManager.dealerCards.Count > 0)
+        {
+            // Destroy all the dealer cards
+            foreach (GameObject card in cardManager.dealerCards)
+            {
+                Destroy(card);
+            }
+
+            // Clear the dealerCards list
+            cardManager.dealerCards.Clear();
+
+        }
     }
 }

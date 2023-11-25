@@ -20,19 +20,16 @@ public class CardManager : MonoBehaviour
     public Player dealer = new Player();
     private Vector3 playerLastSpawnedCardPosition;
     private Vector3 dealerLastSpawnedCardPosition;
-    public List<GameObject> playerCardsHit = new List<GameObject>();
-    public List<GameObject> dealerCardsHit = new List<GameObject>();
+    public List<GameObject> playerCards = new List<GameObject>();
+    public List<GameObject> dealerCards = new List<GameObject>();
 
     //public bool makeBet = false;
     public List<Card> decks = new List<Card>();
     public List<Card> usedCards = new List<Card>();
 
-    private int totalCardsInDeck;
-
     void Start()
     {
         InitializeDecks();
-        totalCardsInDeck = decks.Count;
         //DealCards();
         //DealerCards();
     }
@@ -119,36 +116,10 @@ public class CardManager : MonoBehaviour
         // Reset the last spawned card's position
         playerLastSpawnedCardPosition = Vector3.zero;
 
-        player.ClearHand();
-        // Destroy all cards in the playerCards list
-        // Check if the playerCards list is not empty
-        if (playerCardsHit.Count > 0)
-        {
-            // Destroy all cards in the playerCardsHit list
-            foreach (GameObject card in playerCardsHit)
-            {
-                Destroy(card);
-            }
-
-            // Clear the playerCardsHit list
-            playerCardsHit.Clear();
-        }
-
-
         if (decks.Count < 2)
         {
             Debug.LogWarning("Not enough cards to deal.");
             return;
-        }
-
-        // Destroy previously spawned cards
-        if (previousUserCard1 != null)
-        {
-            Destroy(previousUserCard1);
-        }
-        if (previousUserCard2 != null)
-        {
-            Destroy(previousUserCard2);
         }
 
         // Get two random cards from the deck
@@ -183,8 +154,8 @@ public class CardManager : MonoBehaviour
 
 
         // Set the current cards as the previous cards
-        previousUserCard1 = card1Object;
-        previousUserCard2 = card2Object;
+        playerCards.Add(card1Object);
+        playerCards.Add(card2Object);
 
     }
 
@@ -224,7 +195,7 @@ public class CardManager : MonoBehaviour
         // Instantiate the new card with default rotation
         GameObject newCardObject = Instantiate(newCard.cardPrefab, spawnPosition, Quaternion.identity);
 
-        playerCardsHit.Add(newCardObject);
+        playerCards.Add(newCardObject);
 
         // Set the z rotation to 180 degrees
         newCardObject.transform.eulerAngles = new Vector3(0, 0, 180);
@@ -244,20 +215,6 @@ public class CardManager : MonoBehaviour
         {
             Debug.LogWarning("Not enough cards to deal.");
             return;
-        }
-
-        // Destroy all cards in the dealerCards list
-        // Check if the dealerCards list is not empty
-        if (dealerCardsHit.Count > 0)
-        {
-            // Destroy all cards in the playerCardsHit list
-            foreach (GameObject card in dealerCardsHit)
-            {
-                Destroy(card);
-            }
-
-            // Clear the playerCardsHit list
-            dealerCardsHit.Clear();
         }
 
         // Get two random cards from the deck
@@ -288,8 +245,8 @@ public class CardManager : MonoBehaviour
         // Debug.Log("Dealer card 2: " + card2.suit + card2.rank);
 
         // Set the current cards as the previous cards
-        previousDealerCard1 = card1Object;
-        previousDealerCard2 = card2Object;
+        dealerCards.Add(card1Object);
+        dealerCards.Add(card2Object);
     }
     void MoveCardToPosition(GameObject cardObject, Vector3 targetPosition)
     {
@@ -335,7 +292,7 @@ public class CardManager : MonoBehaviour
         // Instantiate the new card with default rotation
         GameObject newCardObject = Instantiate(newCard.cardPrefab, spawnPosition, Quaternion.identity);
 
-        dealerCardsHit.Add(newCardObject);
+        dealerCards.Add(newCardObject);
 
         // Set the z rotation to 180 degrees
         newCardObject.transform.eulerAngles = new Vector3(0, 0, 180);
@@ -351,7 +308,7 @@ public class CardManager : MonoBehaviour
     public void rotateDealerCard()
     {
         //Turn the around the faced up card
-        previousDealerCard1.transform.eulerAngles = new Vector3(0, 0, 180);
+        dealerCards[1].transform.eulerAngles = new Vector3(0, 0, 180);
         //MoveCardToPosition(previousDealerCard2, card2Placeholder.transform.position);
     }
     // Other functions like ReturnUsedCardsToDeck, CheckReshuffleCondition, etc.
