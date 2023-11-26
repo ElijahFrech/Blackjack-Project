@@ -8,10 +8,10 @@ public class betUI : MonoBehaviour
     [SerializeField] private Text betAmountText;
     [SerializeField] private Text currentBetText;
     [SerializeField] private Text currentUserMoneyText;
-    [SerializeField] private Button upButton;
-    [SerializeField] private Button downButton;
-    [SerializeField] private Button removeButton;
-    [SerializeField] private Button betButton;
+    [SerializeField] private GameObject upButton;
+    [SerializeField] private GameObject downButton;
+    [SerializeField] private GameObject removeButton;
+    [SerializeField] private GameObject betButton;
     [SerializeField] private GameObject playButton;
     [SerializeField] private GameObject standButton;
 
@@ -39,17 +39,17 @@ public class betUI : MonoBehaviour
     {
         if (GameManager.deActivateUIButtons)
         {
-            upButton.enabled = false;
-            downButton.enabled = false;
-            removeButton.enabled = false;
-            betButton.enabled = false;
+            upButton.SetActive(false);
+            downButton.SetActive(false);
+            removeButton.SetActive(false);
+            betButton.SetActive(false);
         }
         else
         {
-            upButton.enabled = true;
-            downButton.enabled = true;
-            removeButton.enabled = true;
-            betButton.enabled = true;
+            upButton.SetActive(true);
+            downButton.SetActive(true);
+            removeButton.SetActive(true);
+            betButton.SetActive(true);
         }
 
         currentBetText.text = string.Format("CURRENT BET: {0} $", currentBetAmount);
