@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
@@ -76,9 +77,17 @@ public class GameManager : MonoBehaviour
 
                 if (betUI.OkayButtonClicked)
                 {
+
+                    
+                if(betUI.userMoney ==0){
+                    SceneManager.LoadScene(0);
+                }else{
+
                     deActivateUIButtons = false;
                     DestroyCards();
                     betUI.OkayButtonClicked = false;
+                }
+
                 }
 
                 /*DISABLE HIT AND STAND BUTTONS EXCEPT PLAY SO THE PLAYER HAS TO ACCEPT THE BET BEFORE HITTING OR STANDING*/
@@ -184,12 +193,24 @@ public class GameManager : MonoBehaviour
                 break;
 
             case GameState.DealerWin:
-                betUI.currentBetAmount = 0;                         //Deduct the indicated(bet amount) amount of chips from player
-                //deActivateUIButtons = false;
+                betUI.currentBetAmount = 0;           
+                
+                if(betUI.userMoney ==0){
+
+                winOrLoseText.text = "GAME OVER YOU LOST";
+                winOrLosePanel.SetActive(true);
+                Debug.Log("Player is broke");
+
+
+                }  else{
+
 
                 winOrLoseText.text = "You Lost";
                 winOrLosePanel.SetActive(true);
                 Debug.Log("Player lost");
+
+                }            //Deduct the indicated(bet amount) amount of chips from player
+                //deActivateUIButtons = false;
 
 
 
