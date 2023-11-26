@@ -194,8 +194,8 @@ public class GameManager : MonoBehaviour
 
             case GameState.DealerWin:
                 betUI.currentBetAmount = 0;           
-                
-                if(betUI.userMoney ==0){
+                Debug.Log("betUI.userMoney" + betUI.userMoney);
+                if(betUI.userMoney == 0){
 
                 winOrLoseText.text = "GAME OVER YOU LOST";
                 winOrLosePanel.SetActive(true);
