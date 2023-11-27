@@ -1,5 +1,7 @@
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine;
+using static GameManager;
 
 public class CardManager : MonoBehaviour
 {
@@ -9,11 +11,6 @@ public class CardManager : MonoBehaviour
     [SerializeField] private GameObject card2Placeholder;
     [SerializeField] private GameObject dealerPlaceholder1;
     [SerializeField] private GameObject dealerPlaceholder2;
-
-    public GameObject previousUserCard1;
-    public GameObject previousUserCard2;
-    public GameObject previousDealerCard1;
-    public GameObject previousDealerCard2;
  
     public Player player = new Player();
     public Player dealer = new Player();
@@ -28,6 +25,7 @@ public class CardManager : MonoBehaviour
     public List<Card> decks = new List<Card>();
     public List<Card> usedCards = new List<Card>();
 
+    //This method runs at the start of the game.
     void Start()
     {
         InitializeDecks();
@@ -62,6 +60,7 @@ public class CardManager : MonoBehaviour
         }
     }
 
+    //Making a prefab of a single card.
     GameObject GetCardPrefab(Card.Suit suit, Card.Rank rank)
     {
         string suitName = suit.ToString();
@@ -101,6 +100,7 @@ public class CardManager : MonoBehaviour
         }
     }
 
+    //Distribute the first two cards for player.
     public void DealCards()
     {
         player.ClearHand();
@@ -144,6 +144,7 @@ public class CardManager : MonoBehaviour
 
     }
 
+    //Generate a new card for player.
     public void PlayerHit()
     {
         if (decks.Count < 10)
@@ -185,6 +186,7 @@ public class CardManager : MonoBehaviour
         playerLastSpawnedCardPosition = spawnPosition;
     }
 
+    //Distribut the first two cards for dealer.
     public void DealerCards()
     {
         dealer.ClearHand();
@@ -223,6 +225,8 @@ public class CardManager : MonoBehaviour
         dealerCards.Add(card1Object);
         dealerCards.Add(card2Object);
     }
+
+    //Move the card to specific location according to the parameters.
     void MoveCardToPosition(GameObject cardObject, Vector3 targetPosition)
     {
         float duration = 1.0f; // Adjust this for the desired animation speed
@@ -239,6 +243,7 @@ public class CardManager : MonoBehaviour
         cardObject.transform.position = targetPosition;
     }
 
+    //Dealer distributes the card for himself according to the cards
     public void DealerHit()
     {
         // Get a random card from the deck
@@ -272,12 +277,31 @@ public class CardManager : MonoBehaviour
         dealerCards[0].transform.eulerAngles = new Vector3(0, 0, 180);
     }
 
+    //Make the MakeBet boolean of GameManager to true.
     public void makeBetButton(){
         GameManager.MakeBet = true;
     }
 
+    //Player stands. Rotate the second card of dealer and it's dealer's turn.
     public void standButton(){
         rotateDealerCard();
         GameManager.state = GameManager.GameState.DealerTurn;
+    }
+
+    //Double the bet money and it's dealer's turn.
+    public void DoubleButton()
+    {
+        if (GameManager.hasEnoughMoney)
+        {
+            betUI.userMoney -= betUI.currentBetAmount;
+            //Add a delay of 1 second
+            //Task.Delay(1000);
+            betUI.currentBetAmount = betUI.currentBetAmount * 2;
+
+            PlayerHit();
+            rotateDealerCard();
+
+            GameManager.state = GameManager.GameState.DealerTurn;
+        }
     }
 }

@@ -15,14 +15,14 @@ public class betUI : MonoBehaviour
     [SerializeField] private GameObject playButton;
     [SerializeField] private GameObject standButton;
 
+    public static int currentBetAmount = 0;
+    public static int userMoney = 500;
+    public static bool okayButtonClicked = false;
+
     int[] betArray = { 1, 5, 10, 25, 50, 100 };
-
     int currentBet = 1;
-    public int currentBetAmount = 0;
-    public int userMoney = 500;
-    public bool okayButtonClicked = false;
     int counter;
-
+    
     void Start()
     {
         counter = 0;
@@ -130,7 +130,7 @@ public class betUI : MonoBehaviour
     }
 
 
-    public bool OkayButtonClicked { 
+    public static bool OkayButtonClicked { 
         get { return okayButtonClicked; } 
         set { okayButtonClicked = value; } 
     }

@@ -56,6 +56,11 @@ public class VRMouseMovement : MonoBehaviour
                 {
                     cardManager.makeBetButton();
                 }
+                else if(name == "Interactable5")
+                {
+                    cardManager.DoubleButton();
+
+                }
 
 
             }
