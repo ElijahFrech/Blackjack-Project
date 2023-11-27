@@ -11,9 +11,10 @@ public class CardsRotatingAround : MonoBehaviour
     Vector3 rotationDirection;
 
     void Start(){
-         rotationSpeed = Random.Range(5, 35);
+         rotationSpeed = Random.Range(5, 25);
       // Randomly choose the direction of rotation around the target
-        rotationDirection = (Random.value < 0.5) ? Vector3.up : Vector3.down;
+        rotationDirection = new Vector3(Random.Range(-0.5f, 0.5f), (Random.value < 0.5) ? 1 : -1, 0);
+    
 
 
     }
