@@ -12,14 +12,15 @@ public class CardManager : MonoBehaviour
 
     public GameObject previousUserCard1;
     public GameObject previousUserCard2;
-
     public GameObject previousDealerCard1;
     public GameObject previousDealerCard2;
  
     public Player player = new Player();
     public Player dealer = new Player();
+
     private Vector3 playerLastSpawnedCardPosition;
     private Vector3 dealerLastSpawnedCardPosition;
+
     public List<GameObject> playerCards = new List<GameObject>();
     public List<GameObject> dealerCards = new List<GameObject>();
 
@@ -30,10 +31,9 @@ public class CardManager : MonoBehaviour
     void Start()
     {
         InitializeDecks();
-        //DealCards();
-        //DealerCards();
     }
 
+    //Initialize the decks
     void InitializeDecks()
     {
         for (int i = 0; i < 6; i++) // Create 6 decks
@@ -58,7 +58,6 @@ public class CardManager : MonoBehaviour
                 Card card = new Card(suit, Card.Rank.Ace, cardPrefab);
                 decks.Add(card);
             }
-
             ShuffleDecks();
         }
     }
@@ -87,18 +86,10 @@ public class CardManager : MonoBehaviour
         // Find the card prefab by name
         GameObject cardPrefab = cardPrefabs.Find(prefab => prefab.name == prefabName);
 
-        //if (cardPrefab == null)
-        //{
-        //    Debug.LogWarning("Prefab not found for: " + prefabName);
-        //}
-        //else
-        //{
-        //    Debug.Log("Found prefab for: " + prefabName);
-        //}
-
         return cardPrefab;
     }
 
+    //Shuffle the catrds in the deck
     void ShuffleDecks()
     {
         for (int i = 0; i < decks.Count; i++)
@@ -133,9 +124,7 @@ public class CardManager : MonoBehaviour
         decks.Remove(card2);
 
         // Pass the cards to the player class
-        // Debug.Log("First Card");
         player.ReceiveCard(card1);
-        // Debug.Log("Second Card");
         player.ReceiveCard(card2);
 
         // Instantiate the cards with default rotations
@@ -148,12 +137,6 @@ public class CardManager : MonoBehaviour
 
         MoveCardToPosition(card1Object, card1Placeholder.transform.position);
         MoveCardToPosition(card2Object, card2Placeholder.transform.position);
-
-        //Debug.Log("Player card 1: " + card1.suit + card1.rank);
-        //Debug.Log("Player card 2: " + card2.suit + card2.rank);
-        // playerAmount = (int)card1.rank + (int)card2.rank;
-        //Debug.Log("Player Sum: " + playerAmount);
-
 
         // Set the current cards as the previous cards
         playerCards.Add(card1Object);
@@ -178,20 +161,16 @@ public class CardManager : MonoBehaviour
         // Remove the dealt card from the deck
         decks.Remove(newCard);
 
-
-
         // Calculate the position for the new card
         Vector3 spawnPosition;
 
         if (playerLastSpawnedCardPosition == Vector3.zero) // Initial spawn
         {
-            spawnPosition = card2Placeholder.transform.position + new Vector3(-0.040f, 0.001f, 0.030f);
-            //Debug.Log("FIRST" + spawnPosition);
+            spawnPosition = card2Placeholder.transform.position + new Vector3(0.040f, 0.001f, 0.030f);
         }
         else
         {
-            spawnPosition = playerLastSpawnedCardPosition + new Vector3(-0.040f, 0.001f, 0.030f);
-            //Debug.Log("NotFIRST" + spawnPosition);
+            spawnPosition = playerLastSpawnedCardPosition + new Vector3(0.040f, 0.001f, 0.030f);
         }
 
         // Instantiate the new card with default rotation
@@ -202,9 +181,6 @@ public class CardManager : MonoBehaviour
         // Set the z rotation to 180 degrees
         newCardObject.transform.eulerAngles = new Vector3(0, 0, 180);
 
-        // Log the newly drawn card
-        // Debug.Log("Player drew: " + newCard.rank + " of " + newCard.suit);
-        // Debug.Log("Player's Card Amount: " + player.GetHandValue());
         // Update the last spawned card's position
         playerLastSpawnedCardPosition = spawnPosition;
     }
@@ -222,8 +198,8 @@ public class CardManager : MonoBehaviour
         // Get two random cards from the deck
         Card card1 = decks[Random.Range(0, decks.Count)];
         Card card2 = decks[Random.Range(0, decks.Count)];
+
         dealer.ReceiveCard(card1);
-        // Debug.Log("Second Card");
         dealer.ReceiveCard(card2);
 
         // Remove the dealt cards from the deck
@@ -242,9 +218,6 @@ public class CardManager : MonoBehaviour
         MoveCardToPosition(card2Object, dealerPlaceholder1.transform.position);
 
         dealerLastSpawnedCardPosition = card1Object.transform.position;
-
-        // Debug.Log("Dealer card 1: " + card1.suit + card1.rank);
-        // Debug.Log("Dealer card 2: " + card2.suit + card2.rank);
 
         // Set the current cards as the previous cards
         dealerCards.Add(card1Object);
@@ -280,17 +253,6 @@ public class CardManager : MonoBehaviour
         // Calculate the position for the new card
         Vector3 spawnPosition = dealerLastSpawnedCardPosition + new Vector3(-0.15f, 0, 0);
 
-        //if (playerLastSpawnedCardPosition == Vector3.zero) // Initial spawn
-        //{
-        //    spawnPosition = card2Placeholder.transform.position + new Vector3(-0.040f, 0.001f, 0.030f);
-        //    //Debug.Log("FIRST" + spawnPosition);
-        //}
-        //else
-        //{
-
-        //    //Debug.Log("NotFIRST" + spawnPosition);
-        //}
-
         // Instantiate the new card with default rotation
         GameObject newCardObject = Instantiate(newCard.cardPrefab, spawnPosition, Quaternion.identity);
 
@@ -299,33 +261,23 @@ public class CardManager : MonoBehaviour
         // Set the z rotation to 180 degrees
         newCardObject.transform.eulerAngles = new Vector3(0, 0, 180);
 
-        // Log the newly drawn card
-        // Debug.Log("Player drew: " + newCard.rank + " of " + newCard.suit);
-        // Debug.Log("Player's Card Amount: " + player.GetHandValue());
         // Update the last spawned card's position
         dealerLastSpawnedCardPosition = spawnPosition;
     }
- 
-    //Dealer analyzes the hand value and reacts according to it.
+
+    //Rotate the dealer's second card face up
     public void rotateDealerCard()
     {
         //Turn the around the faced up card
         dealerCards[0].transform.eulerAngles = new Vector3(0, 0, 180);
-        Debug.Log("Fk vlad");
-        //MoveCardToPosition(previousDealerCard2, card2Placeholder.transform.position);
     }
 
     public void makeBetButton(){
-
-                    GameManager.MakeBet = true;
-
+        GameManager.MakeBet = true;
     }
 
     public void standButton(){
         rotateDealerCard();
         GameManager.state = GameManager.GameState.DealerTurn;
     }
-    // Other functions like ReturnUsedCardsToDeck, CheckReshuffleCondition, etc.
-
-    // ...
 }

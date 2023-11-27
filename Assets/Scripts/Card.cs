@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Card
 {
+    //Enumerator for the 4 suits
     public enum Suit
     {
         Heart,
@@ -12,6 +13,7 @@ public class Card
         Spades
     }
 
+    //Enumerator of the ranks of the cards
     public enum Rank
     {
         Ace = 1,
@@ -34,6 +36,7 @@ public class Card
     public Rank rank;
     public GameObject cardPrefab; // Reference to the associated prefab
 
+    //Constructor
     public Card(Suit suit, Rank rank, GameObject cardPrefab)
     {
         this.suit = suit;
@@ -41,6 +44,7 @@ public class Card
         this.cardPrefab = cardPrefab;
     }
 
+    //Get the value of the card
     public int GetValue()
     {
         if (rank == Rank.Jack || rank == Rank.Queen || rank == Rank.King)
@@ -57,6 +61,7 @@ public class Card
         }
     }
 
+    //Return the rank of the card and it's suit
     public override string ToString()
     {
         return $"{rank} of {suit}";

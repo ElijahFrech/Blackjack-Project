@@ -44,63 +44,50 @@ public class GameManager : MonoBehaviour
 
     public static GameState state;
 
-
-
     //Public properties
     public static bool MakeBet { get { return makeBet; } set { makeBet = value; } }
-    //public static bool DealersTurn { get { return dealersTurn; } set { dealersTurn = value; } }
+
     // Start is called before the first frame update
     void Start()
     {
         hitButton.SetActive(false);
-        // user = new Player();
-        // dealer = new Player();
-
     }
-
-
 
     // Update is called once per frame
     void Update()
-    
-    
     {
-    
-    //Debug.Log(deActivateUIButtons);
         player = cardManager.player;
         dealer = cardManager.dealer;
 
         switch (state)
         {
             case GameState.PlayerBetting:
-
-
                 if (betUI.OkayButtonClicked)
                 {
+                    if(betUI.userMoney ==0){
+                        betUI.userMoney = 500;
+                        betUI.currentBetAmount = 0;
+                        SceneManager.LoadScene(0);
 
-                    
-                if(betUI.userMoney ==0){
-                    SceneManager.LoadScene(0);
-                }else{
+                    }
+                    else{
 
-                    deActivateUIButtons = false;
-                    DestroyCards();
-                    betUI.OkayButtonClicked = false;
+                        deActivateUIButtons = false;
+                        DestroyCards();
+                        betUI.OkayButtonClicked = false;
+                    }
+
                 }
 
-                }
-
-                /*DISABLE HIT AND STAND BUTTONS EXCEPT PLAY SO THE PLAYER HAS TO ACCEPT THE BET BEFORE HITTING OR STANDING*/
-                if (makeBet) /*WHEN CLICKING ON PLAY BUTTON THE STATE GETS CHANGED AND THE PLAYER CAN HIT OR STAND*/
+                if (makeBet)
                 {
                     state = GameState.DealerDealing;
-                    /*HERE MUNIR NEEDS TO CHANGE THE CODE SO ALL THE BETTING BUTTONS GET DISABLED SOMEHOW
-                    *//*ENABLE HIT AND STAND*/
                     deActivateUIButtons = true;
                     makeBet = false;
                 }
                 
                 break;
+
             case GameState.DealerDealing:
                 cardManager.DealerCards();
                 cardManager.DealCards();
@@ -117,10 +104,9 @@ public class GameManager : MonoBehaviour
                 }
 
                 break;
-            case GameState.PlayerTurn:
 
-                //Debug.Log((player.hand.Count).ToString());
-                //Disappear the "Play" button
+            case GameState.PlayerTurn:
+                //Disappear the "Play" button and the "stand" button
                 playButton.SetActive(false);
                 standButton.SetActive(true);
 
@@ -128,11 +114,12 @@ public class GameManager : MonoBehaviour
                 if (player.GetHandValue() >= 21)
                 {
                     cardManager.rotateDealerCard();
+                    Debug.Log("TURNING CARDS");
                     hitButton.SetActive(false);
-                    
 
                     if (player.GetHandValue() == 21)
                     {
+
                         state = GameState.DealerTurn;
                     }
                     else if (player.GetHandValue() > 21)
@@ -142,14 +129,12 @@ public class GameManager : MonoBehaviour
                     }
                 }
                 break;
+
             case GameState.DealerTurn:
                 //Disappear "Hit" button, "Play" button and "Stand" button
                 hitButton.SetActive(false);
                 playButton.SetActive(false);
                 standButton.SetActive(false);
-
-
-
 
                 if (dealer.GetHandValue() < 17)
                 {
@@ -174,19 +159,14 @@ public class GameManager : MonoBehaviour
 
                 break;
 
-
-
             case GameState.PlayerWin:
                 int winningAmount = betUI.currentBetAmount * 2;
 
                 betUI.userMoney += winningAmount;                   //Pay the user the double amount of chips
-                //deActivateUIButtons = false;
 
                 winOrLoseText.text = "You Won";
                 winOrLosePanel.SetActive(true);
                 Debug.Log("Player won");
-
-
 
                 state = GameState.PlayerBetting;
 
@@ -196,31 +176,24 @@ public class GameManager : MonoBehaviour
                 betUI.currentBetAmount = 0;           
                 Debug.Log("betUI.userMoney" + betUI.userMoney);
                 if(betUI.userMoney == 0){
-
-                winOrLoseText.text = "GAME OVER YOU LOST";
-                winOrLosePanel.SetActive(true);
-                Debug.Log("Player is broke");
-
+                    winOrLoseText.text = "GAME OVER YOU LOST";
+                    winOrLosePanel.SetActive(true);
+                    Debug.Log("Player is broke");
 
                 }  else{
+                    winOrLoseText.text = "You Lost";
+                    winOrLosePanel.SetActive(true);
+                    Debug.Log("Player lost");
 
-
-                winOrLoseText.text = "You Lost";
-                winOrLosePanel.SetActive(true);
-                Debug.Log("Player lost");
-
-                }            //Deduct the indicated(bet amount) amount of chips from player
-                //deActivateUIButtons = false;
-
-
+                }
 
                 state = GameState.PlayerBetting;
 
                 break;
 
             case GameState.Push:
-                betUI.userMoney += betUI.currentBetAmount;          //Player neither win neither lose
-                //deActivateUIButtons = false;
+                betUI.userMoney += betUI.currentBetAmount;
+                betUI.currentBetAmount = 0;
 
                 winOrLoseText.text = "It is a draw";
                 winOrLosePanel.SetActive(true);
@@ -228,10 +201,7 @@ public class GameManager : MonoBehaviour
                 state = GameState.PlayerBetting;
 
                 break;
-
-
         }
-
     }
 
     private void DestroyCards()

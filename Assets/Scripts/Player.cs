@@ -5,18 +5,14 @@ using UnityEngine;
 public class Player
 {
     private List<Card> hand = new List<Card>();
-    private int counter;
     public void ReceiveCard(Card card)
     {
         hand.Add(card);
-        foreach (Card c in hand)
-        { 
-            //Debug.Log("card number " + counter +c.ToString() + ", Rank: " + c.rank + ", Rank Value: " + (int)c.rank);
-            //counter++;
-        }
+
     
     }
 
+    //Calcualte the value of the hand
     public int GetHandValue()
     {
         int totalValue = 0;
@@ -25,7 +21,6 @@ public class Player
         for (int i = 0; i < hand.Count; i++)
         {
             Card card = hand[i];
-            Debug.Log("Card " + (i+1) + ": " + card.ToString() + ", Rank: " + card.rank + ", Rank Value: " + (int)card.rank);
 
             int cardValue = card.GetValue();
             totalValue += cardValue;
@@ -46,7 +41,7 @@ public class Player
         return totalValue;
     }
 
-
+    //Clear the hand list
     public void ClearHand()
     {
         hand.Clear();

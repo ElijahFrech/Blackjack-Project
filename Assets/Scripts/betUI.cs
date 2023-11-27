@@ -32,7 +32,6 @@ public class betUI : MonoBehaviour
         currentBet = betArray[counter];
         playButton.SetActive(false);
         standButton.SetActive(false);
-
     }
 
     void Update()
@@ -56,6 +55,7 @@ public class betUI : MonoBehaviour
         currentUserMoneyText.text = string.Format("USER MONEY: {0} $", userMoney);
     }
 
+    //Increase the bet amount
     //ADD AN IF THAT CHECKS IF WE BETTING LESS THAN USER MONEY
     public void increaseBet()
     {
@@ -65,28 +65,23 @@ public class betUI : MonoBehaviour
             counter++;
         }
         currentBet = betArray[counter];
-        // Debug.Log("counter" + counter.ToString());
-        // Debug.Log("CurrentBET" + currentBet.ToString());
-
 
         betAmountText.text = string.Format("{0}", currentBet);
     }
 
+    //Decrease the bet amount
     public void decreaseBet()
     {
-
         if (counter > 0)
         {
             counter--;
         }
         currentBet = betArray[counter];
-        // Debug.Log("counter" + counter.ToString());
-        // Debug.Log("CurrentBET" + currentBet.ToString());
-
-
 
         betAmountText.text = string.Format("{0}", currentBet);
     }
+
+    //Set the current bet amount
     public void makeBet()
     {
         if (currentBet <= userMoney)
@@ -100,11 +95,9 @@ public class betUI : MonoBehaviour
             if(!(currentBetAmount == 0))
             {
                 playButton.SetActive(true);
-                //standButton.SetActive(true);
             }else
             {
                 playButton.SetActive(false);
-                //standButton.SetActive(false);
             }
         }
         else
@@ -113,6 +106,7 @@ public class betUI : MonoBehaviour
         }
     }
 
+    //Remove the bet amount
     public void removeBet()
     {
         if (currentBetAmount >= currentBet)

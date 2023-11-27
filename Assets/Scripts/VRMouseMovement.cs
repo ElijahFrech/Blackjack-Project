@@ -37,22 +37,16 @@ public class VRMouseMovement : MonoBehaviour
 
             if (Physics.Raycast(ray, out hit))
             {
-
-                //Debug.Log("Clicked on: " + hit.transform.name);
                 string name = hit.transform.name;
 
                 if (name == "Interactable")
                 {
-                    cardManager.DealerHit();
-                    //cardManager.DealCards();
-                    //cardManager.DealerCards();
+                    cardManager.rotateDealerCard();
                 }
                 else if (name == "Interactable2")
                 {
                     cardManager.rotateDealerCard();
                     GameManager.state = GameManager.GameState.DealerTurn;
-                    //cardManager.DealersTurn();
-                    //cardManager.DealerCards();
                 }
                 else if (name == "Interactable3")
                 {
