@@ -22713,7 +22713,7 @@ PrefabInstance:
     - target: {fileID: 7050391417257880356, guid: 71f633a8066181c4e8f8217230f77539,
         type: 3}
       propertyPath: m_Activated.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: PlayerHit
+      value: DoubleButton
       objectReference: {fileID: 0}
     - target: {fileID: 7050391417257880356, guid: 71f633a8066181c4e8f8217230f77539,
         type: 3}
