@@ -101,7 +101,7 @@ public class GameManager : MonoBehaviour
                 {
                     hitButton.SetActive(false);
                     doubleButton.SetActive(false);
-
+                    cardManager.rotateDealerCard();
                     state = GameState.DealerTurn;
                 }
                 else
@@ -123,6 +123,7 @@ public class GameManager : MonoBehaviour
                 //Validate if the player hand value is 21 or more
                 if (player.GetHandValue() >= 21)
                 {
+                    Debug.Log("Player hand value is 21 or more");
                     cardManager.rotateDealerCard();
                     
                     hitButton.SetActive(false);
@@ -136,6 +137,7 @@ public class GameManager : MonoBehaviour
                     {
                         state = GameState.DealerWin;
                         standButton.SetActive(false);
+                        doubleButton.SetActive(false);
                     }
                 }
                 break;
