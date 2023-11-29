@@ -5162,6 +5162,11 @@ PrefabInstance:
       objectReference: {fileID: 1880215689}
     - target: {fileID: 295014259555083841, guid: dc34b54161d017040bbd1f058331351f,
         type: 3}
+      propertyPath: doubleButton
+      value: 
+      objectReference: {fileID: 101070786}
+    - target: {fileID: 295014259555083841, guid: dc34b54161d017040bbd1f058331351f,
+        type: 3}
       propertyPath: card1Placeholder
       value: 
       objectReference: {fileID: 1581513348}

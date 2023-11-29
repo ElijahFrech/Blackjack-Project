@@ -11,6 +11,7 @@ public class CardManager : MonoBehaviour
     [SerializeField] private GameObject card2Placeholder;
     [SerializeField] private GameObject dealerPlaceholder1;
     [SerializeField] private GameObject dealerPlaceholder2;
+    [SerializeField] private GameObject doubleButton;
  
     public Player player = new Player();
     public Player dealer = new Player();
@@ -184,6 +185,9 @@ public class CardManager : MonoBehaviour
 
         // Update the last spawned card's position
         playerLastSpawnedCardPosition = spawnPosition;
+
+        //Disappear the Double button
+        doubleButton.SetActive(false);
     }
 
     //Distribut the first two cards for dealer.
@@ -294,8 +298,6 @@ public class CardManager : MonoBehaviour
         if (GameManager.hasEnoughMoney)
         {
             betUI.userMoney -= betUI.currentBetAmount;
-            //Add a delay of 1 second
-            //Task.Delay(1000);
             betUI.currentBetAmount = betUI.currentBetAmount * 2;
 
             PlayerHit();
